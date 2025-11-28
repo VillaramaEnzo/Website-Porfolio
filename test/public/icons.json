@@ -1,0 +1,12 @@
+{
+    "icon": [
+      { "url": "/images/new-document.png", "sizes": "any", "type": "image/png" }
+    ],
+    "shortcut": [
+      { "url": "/images/new-document.png", "sizes": "any", "type": "image/png" },
+      { "url": "/images/new-document.png", "sizes": "any", "type": "image/png" }
+    ],
+    "apple": [
+      { "url": "/images/new-document.png", "sizes": "any", "type": "image/png" }
+    ]
+  }

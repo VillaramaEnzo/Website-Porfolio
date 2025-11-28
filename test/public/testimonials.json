@@ -1,0 +1,10 @@
+{
+    "testimonials": [
+        {
+            "testimonial": "Your testimonial text here...",
+            "author": "John Doe",
+            "position": "Senior Developer",
+            "company": "Tech Corp"
+        }
+    ]
+}

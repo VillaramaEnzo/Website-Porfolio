@@ -1,0 +1,14 @@
+{
+    "name": "Enzo Villarama Portfolio",
+    "short_name": "EV Portfolio",
+    "description": "Welcome to my personal portfolio",
+    "icons": [
+        {
+            "src": "/images/new-document.png",
+            "sizes": "any",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone"
+}
