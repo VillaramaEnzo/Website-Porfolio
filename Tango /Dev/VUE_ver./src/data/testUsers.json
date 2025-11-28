@@ -1,0 +1,47 @@
+[
+  {
+    "phoneNumber": "1",
+    "password": "123",
+    "firstName": "John",
+    "lastName": "Agent",
+    "email": "john.agent@test.com",
+    "submittedFormType": null,
+    "verified": false
+  },
+  {
+    "phoneNumber": "2",
+    "password": "123",
+    "firstName": "Jane",
+    "lastName": "Borrower",
+    "email": "jane.borrower@test.com",
+    "submittedFormType": "borrower",
+    "verified": false
+  },
+  {
+    "phoneNumber": "3",
+    "password": "123",
+    "firstName": "Bob",
+    "lastName": "Lender",
+    "email": "bob.lender@test.com",
+    "submittedFormType": "lender",
+    "verified": true
+  },
+  {
+    "phoneNumber": "4",
+    "password": "123",
+    "firstName": "Alice",
+    "lastName": "Agent",
+    "email": "alice.agent@test.com",
+    "submittedFormType": "agent",
+    "verified": true
+  },
+  {
+    "phoneNumber": "123",
+    "password": "123",
+    "firstName": "Charlie",
+    "lastName": "Lender",
+    "email": "charlie.lender@test.com",
+    "submittedFormType": "borrower",
+    "verified": true
+  }
+]
