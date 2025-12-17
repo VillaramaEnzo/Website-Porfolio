@@ -43,8 +43,8 @@ export default function LandingText() {
     >
       {/* Mobile: Multi-line wrap, Desktop: Single row */}
       <div className="mb-6 md:mb-8 flex flex-wrap md:flex-nowrap gap-3 md:gap-4">
-        {audienceTexts.map((text, index) => (
-          <motion.button
+          {audienceTexts.map((text, index) => (
+            <motion.button
             key={text.audience}
             onClick={() => selectIndex(index)}
             onDoubleClick={resumeAnimation}

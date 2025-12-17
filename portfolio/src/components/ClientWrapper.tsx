@@ -32,7 +32,7 @@ function ClientContent({ children }: { children: React.ReactNode }) {
   return (
     <>
       {shouldShowNav && <Nav />}
-      <div className={shouldShowNav ? 'pt-20 relative' : 'relative'}>
+      <div className="relative">
         <AnimatePresence>
           <PreloaderWrapper />
         </AnimatePresence>
