@@ -2,7 +2,7 @@
 
 import { createContext, useContext, ReactNode, useEffect, useState, useRef } from 'react'
 import { usePreloader } from '@/hooks/usePreloader'
-import { usePage } from '@/context/PageContext'
+import { usePathname } from 'next/navigation'
 
 interface PreloaderContextType {
   showPreloader: boolean
@@ -27,7 +27,7 @@ const PRELOADER_STORAGE_KEY = 'portfolio-preloader-shown'
 const FORCE_PRELOADER_ON_REFRESH = true
 
 export function PreloaderProvider({ children, preloaderTexts }: PreloaderProviderProps) {
-  const { currentPage } = usePage()
+  const pathname = usePathname()
   const preloaderState = usePreloader(preloaderTexts)
   const [hasRunPreloader, setHasRunPreloader] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
@@ -42,7 +42,7 @@ export function PreloaderProvider({ children, preloaderTexts }: PreloaderProvide
     if (!isMounted) return false
 
     // Only run on home page
-    if (currentPage !== 'home') return false
+    if (pathname !== '/') return false
 
     // TESTING: Force preloader on refresh if flag is enabled
     if (FORCE_PRELOADER_ON_REFRESH && typeof window !== 'undefined') {
@@ -93,7 +93,7 @@ export function PreloaderProvider({ children, preloaderTexts }: PreloaderProvide
       hasInitiatedRef.current = true
       preloaderState.setShowPreloader(true)
     }
-  }, [isMounted, currentPage])
+  }, [isMounted, pathname])
 
   // Separate effect to handle preloader completion
   useEffect(() => {
