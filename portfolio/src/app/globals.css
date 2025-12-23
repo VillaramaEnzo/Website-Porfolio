@@ -16,12 +16,22 @@
   padding: 0;
 }
 
+html {
+  /* Lenis smooth scroll requires this */
+  scroll-behavior: auto;
+  /* Lenis handles scrolling, so we hide native scroll */
+  overflow: hidden;
+}
+
 body {
   font-family: 'Lato', sans-serif;
-  height: 100%;
   margin: 0;
   padding: 0;
   color: #555;
+  /* Lenis handles scrolling, so we hide native scroll */
+  overflow: hidden;
+  /* Allow body to extend beyond viewport */
+  position: relative;
 }
 
 .section {
@@ -137,15 +147,4 @@ body {
   }
 }
 
-@keyframes scroll-line {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
 
-.animate-scroll-line {
-  animation: scroll-line 1s linear infinite;
-}

@@ -74,6 +74,8 @@ export default function Header() {
         </div>
 
         <div className="flex justify-between items-start gap-4">
+
+          
           <motion.div 
             initial={{ x: "-20vw"}}
             animate={{ x: ["-20vw", "2vw", 0] }}
@@ -83,6 +85,8 @@ export default function Header() {
           >
             <Logo />
           </motion.div>
+
+
           <motion.div 
             className="flex items-start gap-8 ml-auto text-[#AAA]"
             initial={{ x: "100vw"}}

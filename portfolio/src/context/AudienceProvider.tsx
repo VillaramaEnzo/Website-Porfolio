@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext } from 'react'
-import { useAudienceAnimation } from '@/hooks/useAudienceAnimation'
+import { useAudienceAnimation } from '@/hooks'
 import { audienceTexts } from '@/utils/text'
 
 type AudienceContextType = {

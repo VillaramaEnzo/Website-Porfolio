@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion } from 'motion/react'
-import { useMatrixRain } from '@/hooks/useMatrixRain'
+import { useMatrixRain } from '@/hooks'
 
 export default function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null)

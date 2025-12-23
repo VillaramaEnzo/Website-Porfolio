@@ -1,7 +1,8 @@
 // Centralise all imported icons here
 
 import { IoLogoInstagram, IoLogoLinkedin, IoDocumentText, IoLogoGithub, IoApps, IoGrid,
-  IoLaptopOutline, IoLaptop, IoMenu, IoSearch, IoNewspaper
+  IoLaptopOutline, IoLaptop, IoMenu, IoSearch, IoNewspaper,
+  IoLogoTiktok
  } from "react-icons/io5"
 
 import { FiPlay } from "react-icons/fi"
@@ -14,6 +15,8 @@ export default function getIcon(iconName: string, className?: string) {
         return <IoLogoLinkedin className={className} />
       case 'document':
         return <IoDocumentText className={className} />
+      case 'tiktok':
+        return <IoLogoTiktok className={className} />
       case 'play':
         return <FiPlay className={className} />
       case 'github':

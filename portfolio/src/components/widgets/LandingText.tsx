@@ -1,6 +1,7 @@
 'use client'
+
 import { motion, AnimatePresence } from 'motion/react'
-import { useAudience } from '@/context/AudienceProvider'
+import { useAudience } from '@/context'
 import { audienceTexts } from '@/utils/text'
 import { components } from '@/utils/animations'
 
@@ -50,8 +51,8 @@ export default function LandingText() {
             onDoubleClick={resumeAnimation}
             className={`text-sm md:text-md py-0 md:py-0 transition-colors whitespace-nowrap touch-manipulation
                       ${currentAudience === text.audience 
-                        ? 'font-bold text-blue-400' 
-                        : 'text-gray-400 hover:text-gray-600'}`}
+                        ? 'font-semibold text-indigo-600' 
+                        : 'text-gray-500 hover:text-indigo-600'}`}
             whileHover={components.landingText.buttonHover}
             whileTap={components.landingText.buttonTap}
             animate={currentAudience === text.audience ? components.landingText.buttonActive : {}}

@@ -7,6 +7,10 @@ export const preloaderTexts = [
   { text: "Starting app", duration: 500 }
 ]
 
+
+// Default plain text when "Enable Fun" is off
+export const DEFAULT_SCROLLING_TEXT = "Creative Design Engineer • Graphic Designer • Next.js Enthusiast"
+
 // Phrases for the scramble text in the navbar
 export const phrases = [
   "Hey there! Welcome to my corner of the internet (｡◕ᴗ◕｡)੭",
@@ -15,15 +19,16 @@ export const phrases = [
   "I'm always down for a chat, so email or DM me for anything",
   "You'll find me drinking boba, or scribbling on my iPad (or both)",
   "Down to chat if you like anime, cars and girls (not necessarily in that order)",
-  "I gym regularly, (just on hiatus currently due to perosnal circumstances)", 
+  "I gym regularly, (just on hiatus currently due to personal circumstances)", 
   "I used to be a gamer, was pretty good at Halo, but I don't have time for that anymore (ಥ﹏ಥ)",
   "Am not some copycat, conformist simpleton, I have my own style",
   "Apparently I'm also too nice, I can't stand ghosting, so don't be surprised if you get a reply",
-  "Cause the truth is I'm actually never free, I just make the time.",
+  "Cause the truth is I'm actually never free, I just make the time",
   "I also write alot, so please check out my Substack (nᴗn)✌︎︎",
   "Feel free to reach out if you want to collaborate!",
   "See ya later! (੭˃ᴗ˂)੭"
 ]
+
 
 // Texts for the landing page, depending on the audience
 export const audienceTexts = [
@@ -97,6 +102,7 @@ const ig = "___e_vil"
 const linkedin = "enzo-villarama"
 const github = "VillaramaEnzo"
 const substack = "your-substack-username" // Update with your actual Substack username
+const tiktok = "@___e_vil"
 
 export const links: HeaderLink[] = [
   {
@@ -128,6 +134,12 @@ export const links: HeaderLink[] = [
     icon: "document",
     label: "Resume",
     subtext: "Download PDF"
+  },
+  {
+    href: `https://www.tiktok.com/${tiktok}`,
+    icon: "tiktok",
+    label: "TikTok",
+    subtext: "Follow me"
   }
 ]
 

@@ -88,7 +88,8 @@ export function usePreloader(texts: PreloaderText[]) {
     dots,
     isFadingOut,
     currentIndex,
-    isPreloaderDone
+    isPreloaderDone,
+    setIsPreloaderDone
   }
 }
 

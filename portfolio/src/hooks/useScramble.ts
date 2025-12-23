@@ -61,7 +61,7 @@ const characterSets = {
 }
 
 // Get a random character based on weighted probabilities
-function getRandomChar(): string {
+export function getRandomChar(): string {
   const random = Math.random()
   let probabilitySum = 0
 
@@ -158,5 +158,105 @@ export function useScramble(
   }, [currentPhraseIndex, shouldShow, infinite, scrambleSpeed, transitionInterval, phrases])
 
   return { displayText, ref, shouldShow }
+}
+
+/**
+ * useScrambleTransition Hook
+ * 
+ * Transitions from one text to another using scramble animation.
+ * Useful for smooth transitions between different text states.
+ * Only runs the transition once per fromText/toText pair.
+ */
+export function useScrambleTransition(
+  fromText: string,
+  toText: string,
+  onComplete?: () => void
+) {
+  const [displayText, setDisplayText] = useState(fromText)
+  const [isComplete, setIsComplete] = useState(false)
+  const animationRef = useRef<number>()
+  const transitionKeyRef = useRef<string>('')
+  const onCompleteRef = useRef(onComplete)
+
+  // Keep onComplete ref updated
+  useEffect(() => {
+    onCompleteRef.current = onComplete
+  }, [onComplete])
+
+  // Create a unique key for this transition
+  const currentTransitionKey = `${fromText}->${toText}`
+
+  // Reset only when the transition key changes (new transition)
+  useEffect(() => {
+    if (transitionKeyRef.current !== currentTransitionKey) {
+      transitionKeyRef.current = currentTransitionKey
+      setDisplayText(fromText)
+      setIsComplete(false)
+    }
+  }, [fromText, toText, currentTransitionKey])
+
+  useEffect(() => {
+    // Don't start if already complete or if transition key doesn't match
+    if (isComplete || !fromText || !toText || transitionKeyRef.current !== currentTransitionKey) {
+      return
+    }
+
+    const targetText = toText
+    const scrambleLength = Math.max(fromText.length, targetText.length)
+    const charStates = new Array(scrambleLength).fill(0)
+    let isAnimating = true
+
+    const update = () => {
+      if (!isAnimating) return
+      
+      // Check if we're still on the same transition
+      if (transitionKeyRef.current !== currentTransitionKey) {
+        isAnimating = false
+        return
+      }
+
+      const scrambled = Array(scrambleLength)
+        .fill(' ')
+        .map((space, index) => {
+          const targetChar = index < targetText.length ? targetText[index] : space
+          
+          if (charStates[index] < 10 && Math.random() < 0.3) {
+            charStates[index]++
+          }
+          
+          return charStates[index] >= 10 ? targetChar : getRandomChar()
+        })
+        .join('')
+        .trimEnd()
+
+      setDisplayText(scrambled)
+
+      if (charStates.every(state => state >= 10)) {
+        setDisplayText(targetText)
+        setIsComplete(true)
+        isAnimating = false
+        // Use ref to call onComplete to avoid dependency issues
+        if (onCompleteRef.current) {
+          // Call onComplete after a brief delay to ensure final render
+          setTimeout(() => {
+            onCompleteRef.current?.()
+          }, 100)
+        }
+      } else {
+        animationRef.current = requestAnimationFrame(update)
+      }
+    }
+
+    animationRef.current = requestAnimationFrame(update)
+
+    return () => {
+      isAnimating = false
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+    }
+  }, [fromText, toText, isComplete, currentTransitionKey])
+
+  return { displayText, isComplete }
 }
 

@@ -1,15 +1,17 @@
 'use client'
 
-import { PreloaderProvider } from '@/context/PreloaderContext'
-import { AudienceProvider } from '@/context/AudienceProvider'
-import { ThemeProvider } from '@/context/ThemeContext'
-import Nav from '@/components/navigation/Nav'
+import { PreloaderProvider, AudienceProvider, ThemeProvider, RemixProvider, ScrollProvider } from '@/context'
+import Header from '@/components/navigation/Header'
 import Preloader from '@/components/Preloader/Preloader'
+import CommandCenter from '@/components/widgets/CommandCenter'
 import { preloaderTexts } from '@/utils/text'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence } from 'motion/react'
 import { usePathname } from 'next/navigation'
-import { usePreloaderContext } from '@/context/PreloaderContext'
-import { transitions } from '@/utils/animations'
+import { usePreloaderContext } from '@/context'
+
+import BackToTopButton from '@/components/navigation/BackToTopButton'
+import PageTransition from '@/components/Transitions/PageTransition'
+import { getTransitionForRoute } from '@/utils/transitionConfig'
 
 function PreloaderWrapper() {
   const pathname = usePathname()
@@ -24,27 +26,31 @@ function PreloaderWrapper() {
 function ClientContent({ children }: { children: React.ReactNode }) {
   const { isPreloaderDone, showPreloader } = usePreloaderContext()
   const pathname = usePathname()
-  
-  // Hide navbar on easter egg/play pages
-  const isEasterEggPage = pathname === '/play'
-  const shouldShowNav = !isEasterEggPage
+
+  // Determine if we should skip page transition
+  // Skip only when: home page AND preloader is showing/not done
+  const shouldSkipTransition = pathname === '/' && showPreloader && !isPreloaderDone
+
+  // Get transition type for current route
+  const transitionType = getTransitionForRoute(pathname)
 
   return (
     <>
-      {shouldShowNav && <Nav />}
+      <Header />
+      <CommandCenter key={pathname} />
+      <BackToTopButton />
       <div className="relative">
         <AnimatePresence>
           <PreloaderWrapper />
         </AnimatePresence>
         {/* Hide page content until preloader is done to prevent flash */}
         {(!showPreloader || isPreloaderDone) && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={transitions.fast}
+          <PageTransition 
+            shouldSkipTransition={shouldSkipTransition}
+            transitionType={transitionType}
           >
             {children}
-          </motion.div>
+          </PageTransition>
         )}
       </div>
     </>
@@ -54,13 +60,17 @@ function ClientContent({ children }: { children: React.ReactNode }) {
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
-      <PreloaderProvider preloaderTexts={preloaderTexts}>
+    <PreloaderProvider preloaderTexts={preloaderTexts}>
+      <RemixProvider>
         <AudienceProvider>
-          <ClientContent>
-            {children}
-          </ClientContent>
+            <ScrollProvider>
+              <ClientContent>
+                {children}
+              </ClientContent>
+            </ScrollProvider>
         </AudienceProvider>
-      </PreloaderProvider>
+      </RemixProvider>
+    </PreloaderProvider>
     </ThemeProvider>
   )
 }

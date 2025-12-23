@@ -2,7 +2,7 @@
 
 import { useRef, RefObject, useEffect, useState } from 'react'
 import { useTransform, MotionValue, useMotionValue, useMotionValueEvent } from 'motion/react'
-import { useScrollContext } from '@/context/ScrollProvider'
+import { useScrollContext } from '@/context'
 
 /**
  * Hook for creating parallax effects on individual elements

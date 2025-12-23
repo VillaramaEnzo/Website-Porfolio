@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
-import { useScrollContext } from '@/context/ScrollProvider'
+import { motion, AnimatePresence, useMotionValueEvent } from 'motion/react'
+import { useScrollManager } from '@/hooks'
 
 interface BackToTopButtonProps {
   thresholdPercentage?: number
@@ -13,7 +13,7 @@ export default function BackToTopButton({
   thresholdPercentage = 20,
   className = ""
 }: BackToTopButtonProps) {
-  const { scrollY, scrollToTop } = useScrollContext()
+  const { scrollYMotion, scrollToTop } = useScrollManager()
   const [isVisible, setIsVisible] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -24,31 +24,35 @@ export default function BackToTopButton({
 
   // Handle scroll visibility
   useEffect(() => {
-    if (!isMounted) return
+    if (!isMounted || !scrollYMotion) return
     
     const threshold = (window.innerHeight * thresholdPercentage) / 100
     
     // Check initial state
-    setIsVisible(scrollY.get() > threshold)
-    
-    // Subscribe to scroll changes
-    const unsubscribe = scrollY.on('change', (value) => {
-      setIsVisible(value > threshold)
-    })
+    setIsVisible(scrollYMotion.get() > threshold)
+  }, [scrollYMotion, thresholdPercentage, isMounted])
 
-    return () => {
-      unsubscribe()
-    }
-  }, [scrollY, thresholdPercentage, isMounted])
+  // Subscribe to scroll changes using Motion's hook (must be called unconditionally)
+  useMotionValueEvent(scrollYMotion, 'change', (value) => {
+    if (!isMounted || !scrollYMotion) return
+    const threshold = (window.innerHeight * thresholdPercentage) / 100
+    setIsVisible(value > threshold)
+  })
 
   if (!isMounted) return null
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    scrollToTop()
+  }
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          onClick={scrollToTop}
-          className={`fixed bottom-4 right-4 bg-black hover:bg-gray-800 text-white font-bold w-12 h-12 rounded-full shadow-lg z-50 flex items-center justify-center transition-colors ${className}`}
+          onClick={handleClick}
+          className={`fixed bottom-4 right-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-900 font-semibold w-12 h-12 rounded-xl shadow-sm hover:shadow-md z-[101] flex items-center justify-center transition-colors ${className}`}
           aria-label="Back to top"
           initial={{ x: '100%', opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'motion/react'
-import { useScramble } from '@/hooks/useScramble'
+import { useScramble } from '@/hooks'
 
 interface ScrambleTextProps {
   phrases: string[]

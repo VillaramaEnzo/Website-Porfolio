@@ -1,6 +1,6 @@
 'use client'
 import { motion, AnimatePresence } from 'motion/react'
-import { usePreloaderContext } from '@/context/PreloaderContext'
+import { usePreloaderContext } from '@/context'
 import MatrixRain from '@/components/widgets/MatrixRain'
 import { components } from '@/utils/animations'
 
@@ -11,7 +11,7 @@ export default function Preloader() {
     isFadingOut,
     showPreloader
   } = usePreloaderContext()
-  
+
   if (!showPreloader) return null
 
   return (

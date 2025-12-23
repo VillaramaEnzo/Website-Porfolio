@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, ReactNode, useEffect, useState, useRef } from 'react'
-import { usePreloader } from '@/hooks/usePreloader'
+import { usePreloader } from '@/hooks'
 import { usePathname } from 'next/navigation'
 
 interface PreloaderContextType {
@@ -12,6 +12,7 @@ interface PreloaderContextType {
   isFadingOut: boolean
   currentIndex: number
   isPreloaderDone: boolean
+  setIsPreloaderDone: (done: boolean) => void
 }
 
 interface PreloaderProviderProps {
@@ -83,6 +84,10 @@ export function PreloaderProvider({ children, preloaderTexts }: PreloaderProvide
       const timer = setTimeout(() => {
         setHasRunPreloader(true)
         preloaderState.setShowPreloader(false)
+        // On non-home pages, mark preloader as done so CommandCenter can work
+        if (pathname !== '/') {
+          preloaderState.setIsPreloaderDone(true)
+        }
         hasInitiatedRef.current = true
       }, 100)
       return () => clearTimeout(timer)
@@ -105,6 +110,13 @@ export function PreloaderProvider({ children, preloaderTexts }: PreloaderProvide
       }
     }
   }, [preloaderState.isPreloaderDone, hasRunPreloader])
+
+  // Ensure isPreloaderDone is true on non-home pages (for CommandCenter to work)
+  useEffect(() => {
+    if (isMounted && pathname !== '/' && !preloaderState.showPreloader) {
+      preloaderState.setIsPreloaderDone(true)
+    }
+  }, [isMounted, pathname, preloaderState.showPreloader, preloaderState.setIsPreloaderDone])
 
   return (
     <PreloaderContext.Provider value={preloaderState}>

@@ -1,4 +1,3 @@
-'use client'
 
 // Easter Egg Page - Secret route (not in navigation)
 // Inspired by Bruno Simon's interactive 3D portfolio: https://bruno-simon.com
