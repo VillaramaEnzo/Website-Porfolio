@@ -9,6 +9,7 @@ export default function Home() {
     <div className="w-full h-full bg-[#FFF">
 
       <NewSection />
+      
      
       <section>
         <div className="w-full h-screen bg-red-500">

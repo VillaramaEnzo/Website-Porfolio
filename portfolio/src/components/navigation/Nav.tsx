@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import { motion } from 'motion/react'
-import HamburgerMenu from '@/components/navigation/HamburgerMenu'
-import Drawer from '@/components/navigation/Drawer'
-import RemixDrawer from '@/components/navigation/RemixDrawer'
+import HamburgerMenu from '@/components/Navigation/HamburgerMenu'
+import Drawer from '@/components/Navigation/Drawer'
+import RemixDrawer from '@/components/Navigation/RemixDrawer'
 import { 
   useNav, 
   ScrollingScrambleText, 

@@ -1,35 +1,47 @@
 /**
  * Header Visibility Configuration
  * 
- * Controls which header components are visible on specific routes.
- * Allows granular control over HeaderTop and Nav visibility.
+ * Controls which navigation components are visible on specific routes.
+ * Allows granular control over Header, Nav, and SectionNav visibility.
+ * 
+ * - Header: Semantic header element with site information (top of page)
+ * - Nav: Bottom navigation component
+ * - SectionNav: Section navigation component (right side)
  */
 
 export interface HeaderVisibility {
-  headerTop: boolean
+  header: boolean
   nav: boolean
+  sectionNav: boolean
 }
 
 export const headerVisibilityConfig: Record<string, HeaderVisibility> = {
-  // Hide entire header on play page
-  
+  // Default: show all components
   '/': {
-    headerTop: true,
+    header: true,
     nav: true,
+    sectionNav: true,
   },
+  
+  // Hide all navigation on secret/play pages
   '/play': {
-    headerTop: false,
+    header: false,
     nav: false,
-  }
-  // Hide only HeaderTop on specific pages
+    sectionNav: false,
+  },
+  
+  // Example: Hide only SectionNav on specific pages
   // '/some-page': {
+  //   headerTop: true,
+  //   nav: true,
+  //   sectionNav: false,
+  // },
+  
+  // Example: Hide only Header on specific pages
+  // '/another-page': {
   //   headerTop: false,
   //   nav: true,
-  // },
-  // Hide only Nav on specific pages
-  // '/another-page': {
-  //   headerTop: true,
-  //   nav: false,
+  //   sectionNav: true,
   // },
 }
 
@@ -37,10 +49,11 @@ export const headerVisibilityConfig: Record<string, HeaderVisibility> = {
  * Get header visibility for a given pathname
  */
 export function getHeaderVisibility(pathname: string): HeaderVisibility {
-  // Default: show both
+  // Default: show all components
   const defaultVisibility: HeaderVisibility = {
-    headerTop: true,
+    header: true,
     nav: true,
+    sectionNav: true,
   }
   
   return headerVisibilityConfig[pathname] || defaultVisibility

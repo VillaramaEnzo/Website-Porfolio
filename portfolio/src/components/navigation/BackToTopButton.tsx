@@ -52,7 +52,7 @@ export default function BackToTopButton({
       {isVisible && (
         <motion.button
           onClick={handleClick}
-          className={`fixed bottom-4 right-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-900 font-semibold w-12 h-12 rounded-xl shadow-sm hover:shadow-md z-[101] flex items-center justify-center transition-colors ${className}`}
+          className={`fixed bottom-4 right-4 bg-indigo-100/50 backdrop-blur-md hover:bg-indigo-100/70 text-indigo-900 font-semibold w-12 h-12 rounded-xl shadow-sm hover:shadow-md z-[101] flex items-center justify-center transition-colors ${className}`}
           aria-label="Back to top"
           initial={{ x: '100%', opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -66,7 +66,7 @@ export default function BackToTopButton({
             stroke="currentColor" 
             className="w-6 h-6"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
           </svg>
         </motion.button>
       )}

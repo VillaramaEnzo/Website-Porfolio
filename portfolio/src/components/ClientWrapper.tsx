@@ -1,15 +1,14 @@
 'use client'
 
 import { PreloaderProvider, AudienceProvider, ThemeProvider, RemixProvider, ScrollProvider } from '@/context'
-import Header from '@/components/navigation/Header'
+import Header from '@/components/Navigation/Header'
+import Navigation from '@/components/Navigation'
 import Preloader from '@/components/Preloader/Preloader'
-import CommandCenter from '@/components/widgets/CommandCenter'
 import { preloaderTexts } from '@/utils/text'
 import { AnimatePresence } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import { usePreloaderContext } from '@/context'
 
-import BackToTopButton from '@/components/navigation/BackToTopButton'
 import PageTransition from '@/components/Transitions/PageTransition'
 import { getTransitionForRoute } from '@/utils/transitionConfig'
 
@@ -37,8 +36,7 @@ function ClientContent({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <CommandCenter key={pathname} />
-      <BackToTopButton />
+      <Navigation />
       <div className="relative">
         <AnimatePresence>
           <PreloaderWrapper />

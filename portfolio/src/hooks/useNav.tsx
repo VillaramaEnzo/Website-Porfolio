@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, type ReactElement } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo, type ReactElement } from 'react'
 import { motion, useMotionValue, type MotionValue } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import { useScramble, useScrambleTransition } from '@/hooks'
@@ -503,6 +503,48 @@ export function useNav() {
     setCurrentScrambleText,
     setIsRemixDrawerOpen,
     setRemixDrawerHeight,
+  }
+}
+
+/**
+ * useSectionNav Hook
+ * 
+ * Manages state and helper functions for the section navigation component.
+ * Handles active section tracking, expansion state, and scroll functionality.
+ */
+export function useSectionNav({
+  sectionNames,
+  activeLineWidth = 30,
+}: {
+  sectionNames: string[]
+  activeLineWidth?: number
+}) {
+  const [activeSection, setActiveSection] = useState<number>(0)
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  // Calculate the maximum width needed based on the longest section name
+  const maxWidth = useMemo(() => {
+    const longestSection = sectionNames.reduce((longest, current) => 
+      current.length > longest.length ? current : longest
+    )
+    // Approximate width calculation:
+    // 0.5rem (letter width) * longest name length + activeLineWidth + padding + margins
+    return `${Math.max(longestSection.length * 0.5 + (activeLineWidth/16) + 3)}rem`
+  }, [sectionNames, activeLineWidth])
+
+  const scrollToSection = useCallback((index: number) => {
+    setActiveSection(index)
+    // TODO: Implement actual scroll to section functionality
+    // For now, just update the active section
+    console.log(`Scroll to section: ${sectionNames[index]}`)
+  }, [sectionNames])
+
+  return {
+    activeSection,
+    isExpanded,
+    maxWidth,
+    scrollToSection,
+    setIsExpanded,
   }
 }
 

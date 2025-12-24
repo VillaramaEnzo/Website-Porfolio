@@ -3,9 +3,10 @@
 // Inspired by Bruno Simon's interactive 3D portfolio: https://bruno-simon.com
 // Access via: /play (not linked in navigation)
 
-export default function PlayPage() {
+function Scene() {
+
   return (
-    <div className="w-full h-screen bg-black text-white flex items-center justify-center relative overflow-hidden">
+    <>
       {/* Canvas container for 3D scene - will be replaced with Three.js canvas */}
       <div id="canvas-container" className="absolute inset-0 w-full h-full" />
       
@@ -52,6 +53,82 @@ export default function PlayPage() {
               💡 <strong>Resources:</strong> Check out Bruno's <a href="https://github.com/brunosimon/portfolio-2024" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">GitHub</a> and <a href="https://threejs-journey.com" className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">Three.js Journey</a> course for detailed tutorials!
             </p>
           </div>
+        </div>
+      </div>
+    </>
+
+  )
+
+
+}
+
+
+function Box() {
+  const clipPath = "M 10, 50 L \
+                      90, 50 A 10, 10, 0, 0, 0, \
+                      100, 40 L \
+                      100, 10 A 10, 10, 0, 0, 1, \
+                      110, 0 L \
+                      190, 0, A 10, 10, 0, 0, 1, \
+                      200, 10 L \
+                      200, 190 A 10, 10, 0, 0, 1, \
+                      190, 200 L \
+                      10, 200 A 10, 10, 0, 0, 1, \
+                      0, 190 L \
+                      0, 60, A 10, 10, 0, 0, 1, \
+                      10, 50 Z"
+
+  return (
+    <div className="w-[200px] h-[200px] bg-red-500" style={{ clipPath: `path("${clipPath}")` }}/> 
+  )
+}
+
+function BoxScalable() {
+  return (
+    <div className="relative w-[20vw] aspect-square">
+      {/* Define clipPath in SVG with relative coordinates */}
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <clipPath id="custom-shape" clipPathUnits="objectBoundingBox">
+            <path d="M 0.05, 0.25 L
+                     0.45, 0.25 A 0.05, 0.05, 0, 0, 0,
+                     0.5, 0.2 L
+                     0.5, 0.05 A 0.05, 0.05, 0, 0, 1,
+                     0.55, 0 L
+                     0.95, 0 A 0.05, 0.05, 0, 0, 1,
+                     1, 0.05 L
+                     1, 0.95 A 0.05, 0.05, 0, 0, 1,
+                     0.95, 1 L
+                     0.05, 1 A 0.05, 0.05, 0, 0, 1,
+                     0, 0.95 L
+                     0, 0.3 A 0.05, 0.05, 0, 0, 1,
+                     0.05, 0.25 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      {/* Apply clipPath to div */}
+      <div 
+        className="w-full h-full bg-red-500"
+        style={{ clipPath: 'url(#custom-shape)' }}
+      />
+
+    </div>
+  )
+}
+
+export default function PlayPage() {
+  return (
+    <div className="w-full h-screen bg-white text-white flex items-center justify-center relative overflow-hidden">
+      <div className="flex gap-8 items-center">
+        <div className="text-center">
+          <h3 className="text-sm text-gray-400 mb-4">Original (CSS path)</h3>
+          <Box />
+        </div>
+        
+        <div className="text-center">
+          <h3 className="text-sm text-gray-400 mb-4">Scalable (SVG clipPath)</h3>
+          <BoxScalable />
         </div>
       </div>
     </div>

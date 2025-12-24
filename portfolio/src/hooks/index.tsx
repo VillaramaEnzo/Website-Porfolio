@@ -1,5 +1,5 @@
 // Main hooks
-export { useNav } from './useNav'
+export { useNav, useSectionNav } from './useNav'
 export { useCommandCenter } from './useCommandCenter'
 export { usePreloader } from './usePreloader'
 export { useScrollManager } from './useScrollManager'
