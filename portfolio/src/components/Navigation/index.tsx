@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import Nav from './Nav'
 import BackToTopButton from './BackToTopButton'
 import CommandCenter from '@/components/widgets/CommandCenter'
-import { getHeaderVisibility } from '@/utils/headerConfig'
+import { getHeaderVisibility } from '@/utils/navConfig'
 import SectionNav from './SectionNav'
 
 // Export individual components
@@ -46,7 +46,8 @@ export default function Navigation() {
       {/* Command Center - Always available (handles own visibility) */}
       <CommandCenter key={pathname} />
 
-      <SectionNav />
+      {/* Section Navigation - Conditionally rendered based on route */}
+      {visibility.sectionNav && <SectionNav />}
     </>
   )
 }

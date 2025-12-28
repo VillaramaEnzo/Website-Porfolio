@@ -1,5 +1,5 @@
 /**
- * Header Visibility Configuration
+ * Navigation Visibility Configuration
  * 
  * Controls which navigation components are visible on specific routes.
  * Allows granular control over Header, Nav, and SectionNav visibility.
@@ -29,7 +29,12 @@ export const headerVisibilityConfig: Record<string, HeaderVisibility> = {
     nav: false,
     sectionNav: false,
   },
-  
+
+  "/gallery": {
+    header: false,
+    nav: false,
+    sectionNav: false,
+  },
   // Example: Hide only SectionNav on specific pages
   // '/some-page': {
   //   headerTop: true,
@@ -58,4 +63,5 @@ export function getHeaderVisibility(pathname: string): HeaderVisibility {
   
   return headerVisibilityConfig[pathname] || defaultVisibility
 }
+
 

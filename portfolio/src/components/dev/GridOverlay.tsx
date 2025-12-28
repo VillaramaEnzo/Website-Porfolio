@@ -8,7 +8,7 @@ import { useState, useEffect, useMemo } from 'react'
 type GridLayout = {
   name: string
   enabled: boolean
-  gap: string // Tailwind gap classes (e.g., 'gap-3 sm:gap-4 md:gap-6' or 'gap-0')
+  gap: string // Tailwind gap classes (e.g., 'gap-3 sm:gap-4 md:gap-6'G or 'gap-0')
   padding: string // Tailwind padding classes (e.g., 'px-3 sm:px-4 md:px-6 lg:px-8' or 'px-0')
   columns: {
     mobile: number // Number of columns on mobile (default breakpoint)
@@ -87,7 +87,7 @@ const GRID_LAYOUTS: GridLayout[] = [
   },
   {
     name: '12-8-4 no gaps',
-    enabled: true,
+    enabled: false,
     gap: 'gap-0',
     padding: 'px-0',
     columns: {
@@ -98,7 +98,7 @@ const GRID_LAYOUTS: GridLayout[] = [
   },
   {
     name: '12-8-4 minimal gaps',
-    enabled: true,
+    enabled: false,
     gap: 'gap-1 sm:gap-2 md:gap-3',
     padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
     columns: {
@@ -109,7 +109,7 @@ const GRID_LAYOUTS: GridLayout[] = [
   },
   {
     name: '12-8-4 large gaps',
-    enabled: true,
+    enabled: false,
     gap: 'gap-6 sm:gap-8 md:gap-12',
     padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
     columns: {
@@ -163,8 +163,19 @@ const GRID_LAYOUTS: GridLayout[] = [
     },
   },
   {
-    name: '16-column grid',
+    name: 'Gallery Grid',
     enabled: true,
+    gap: 'gap-1 sm:gap-2 md:gap-4',
+    padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
+    columns: {
+      mobile: 4,
+      tablet: 8,
+      desktop: 8,
+    },
+  },
+  {
+    name: '16-column grid',
+    enabled: false,
     gap: 'gap-3 sm:gap-4 md:gap-6',
     padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
     columns: {

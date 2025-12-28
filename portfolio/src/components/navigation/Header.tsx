@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 import LiveClock from '@/components/widgets/LiveClock'
 import Nav from '@/components/Navigation/Nav'
-import { getHeaderVisibility } from '@/utils/headerConfig'
+import { getHeaderVisibility } from '@/utils/navConfig'
 
 // Email address for contact button
 const CONTACT_EMAIL = 'ienzovillarama@gmail.com' // TODO: Replace with your actual email

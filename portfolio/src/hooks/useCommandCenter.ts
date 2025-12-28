@@ -242,6 +242,15 @@ export function useCommandCenter() {
 
   // Handle keyboard navigation and selection
   const handleInputKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Handle Cmd+A / Ctrl+A to select all text
+    if ((e.metaKey || e.ctrlKey) && e.key === 'a') {
+      e.preventDefault()
+      if (inputRef.current) {
+        inputRef.current.select()
+      }
+      return
+    }
+    
     if (e.key === 'Enter') {
       e.preventDefault()
       const trimmedInput = inputValue.trim()
@@ -299,14 +308,26 @@ export function useCommandCenter() {
       }
       
       // If nothing was handled, check if we should search on Google
+      // Only search if input starts with alphanumeric characters (not /, #, etc.)
       if (!handled) {
-        const searchQuery = extractSearchQuery(trimmedInput)
+        // Check if input starts with non-alphanumeric characters
+        const startsWithNonAlphanumeric = /^[^a-zA-Z0-9]/.test(trimmedInput)
         
-        if (searchQuery) {
-          const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`
-          window.open(googleSearchUrl, '_blank', 'noopener,noreferrer')
+        if (startsWithNonAlphanumeric) {
+          // Invalid input - don't search Google for routes or special characters
+          // Just close the command center without doing anything
           setIsOpen(false)
           setInputValue('')
+        } else {
+          // Valid input format - proceed with Google search
+          const searchQuery = extractSearchQuery(trimmedInput)
+          
+          if (searchQuery) {
+            const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`
+            window.open(googleSearchUrl, '_blank', 'noopener,noreferrer')
+            setIsOpen(false)
+            setInputValue('')
+          }
         }
       }
     } else if (e.key === 'ArrowDown') {

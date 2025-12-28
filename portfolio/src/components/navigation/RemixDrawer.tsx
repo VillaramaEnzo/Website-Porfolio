@@ -1,12 +1,5 @@
 'use client'
 
-/* 
-
-Need to fix on close. It should close the drawer and reset the height to 0.
-Animation works but isnt smooth currently.
-
-*/
-
 import { motion, AnimatePresence } from 'motion/react'
 import { useEffect, useRef } from 'react'
 
@@ -25,7 +18,7 @@ interface RemixDrawerProps {
  */
 export default function RemixDrawer({ isOpen, onClose, onHeightChange }: RemixDrawerProps) {
   const drawerRef = useRef<HTMLDivElement>(null)
-
+  const contentRef = useRef<HTMLDivElement>(null)
 
   // Track height changes for nav positioning
   useEffect(() => {
@@ -81,7 +74,7 @@ export default function RemixDrawer({ isOpen, onClose, onHeightChange }: RemixDr
             borderBottomRightRadius: '1rem',
           }}
         >
-          <div className="px-6 py-6">
+          <div ref={contentRef} className="px-6 py-6">
             {/* Placeholder spacer to make drawer visible - takes up 40vh */}
             <div className="h-[40vh] w-full flex items-center justify-center bg-red-400/20 rounded-lg border-2 border-dashed border-red-300">
               <div className="text-center">

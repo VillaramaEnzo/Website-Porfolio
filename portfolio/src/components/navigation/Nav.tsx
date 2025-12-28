@@ -79,9 +79,10 @@ export default function Nav() {
         },
       }}
     >
-
-      {/* Combined Nav + Drawer Container - One continuous block */}
-      <div className="relative">
+      {/* Container to align with grid - centered on sm, left-aligned on md+ */}
+      <div className="w-[90vw] sm:w-[90vw] md:w-full md:max-w-7xl sm:mx-auto md:mx-0">
+        {/* Combined Nav + Drawer Container - One continuous block */}
+        <div className="relative">
         {/* Drawer Content - Expands upward, absolutely positioned */}
         <Drawer 
           isOpen={isMenuOpen}
@@ -99,8 +100,9 @@ export default function Nav() {
         )}
 
         {/* Main Nav Card - Always visible, fixed position */}
+        {/* Nav is positioned at grid padding edge, so content padding aligns with grid columns */}
         <div 
-          className="bg-indigo-50 px-4 py-3 md:px-6 md:py-4 flex items-center gap-4 md:gap-6 overflow-hidden"
+          className="bg-indigo-50 px-3 sm:px-4 md:px-6 lg:px-8 py-3 md:py-4 flex items-center gap-4 md:gap-6 overflow-hidden"
           style={{
             borderTopLeftRadius: isMenuOpen ? 0 : '1rem',
             borderTopRightRadius: isMenuOpen ? 0 : '1rem',
@@ -208,6 +210,7 @@ export default function Nav() {
             </div>
           </div>
         </div>
-      </motion.nav>
+      </div>
+    </motion.nav>
   )
 }

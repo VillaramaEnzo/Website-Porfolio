@@ -288,13 +288,15 @@ export function useNav() {
   }, [isRemixing])
 
   // Handle desktop/mobile positioning
+  // Aligns with grid overlay padding: px-3 sm:px-4 md:px-6 lg:px-8
   useEffect(() => {
     const checkScreenSize = () => {
       const desktop = window.innerWidth >= 768 // md breakpoint
       
       if (desktop) {
         const lgDesktop = window.innerWidth >= 1024 // lg breakpoint
-        left.set(lgDesktop ? '1.5rem' : '1rem')
+        // Match grid overlay padding: md:px-6 (1.5rem) and lg:px-8 (2rem)
+        left.set(lgDesktop ? '2rem' : '1.5rem') // lg: 32px, md: 24px
         x.set('0px')
       } else {
         left.set('50%')
@@ -323,7 +325,7 @@ export function useNav() {
       y.set(-remixDrawerHeight)
     } else if (!isRemixDrawerOpen) {
       // Animate back to 0 (original position) - animate smoothly with the drawer exit
-      // Don't delay - let the spring animation handle it naturally
+      // Start animating immediately when drawer starts closing, spring will handle smoothness
       y.set(0)
     }
   }, [isRemixDrawerOpen, remixDrawerHeight, y])

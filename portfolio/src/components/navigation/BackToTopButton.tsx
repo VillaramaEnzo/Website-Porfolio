@@ -52,7 +52,7 @@ export default function BackToTopButton({
       {isVisible && (
         <motion.button
           onClick={handleClick}
-          className={`fixed bottom-4 right-4 bg-indigo-100/50 backdrop-blur-md hover:bg-indigo-100/70 text-indigo-900 font-semibold w-12 h-12 rounded-xl shadow-sm hover:shadow-md z-[101] flex items-center justify-center transition-colors ${className}`}
+          className={`fixed bottom-4 right-4 bg-indigo-100/50 backdrop-blur-md hover:bg-indigo-100/70 text-indigo-900 font-semibold w-12 h-12 rounded-xl shadow-sm hover:shadow-md z-[101] hidden md:flex items-center justify-center transition-colors ${className}`}
           aria-label="Back to top"
           initial={{ x: '100%', opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
