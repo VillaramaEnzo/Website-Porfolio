@@ -21,6 +21,8 @@ export default function CommandCenter() {
     selectedIndex,
     isValidatingCode,
     secretCodeValidation,
+    evaluationResult,
+    isEvaluating,
     inputRef,
     routeSuggestions,
     codeSuggestions,
@@ -149,6 +151,53 @@ export default function CommandCenter() {
                         </motion.div>
                       ))}
                     </div>
+                  ) : isEvaluating ? (
+                    <div className="p-4 text-sm text-gray-400">
+                      <p>Evaluating...</p>
+                    </div>
+                  ) : evaluationResult?.success ? (
+                    <div className="p-4 text-sm">
+                      <div className="mb-2 flex items-center gap-2">
+                        <span className="text-xs text-gray-500 uppercase tracking-wide">
+                          {evaluationResult.type === 'math' ? 'Math' : 
+                           evaluationResult.type === 'currency' ? 'Currency' : 
+                           evaluationResult.type === 'metric' ? 'Conversion' : 'Result'}
+                        </span>
+                      </div>
+                      <div className="flex items-baseline gap-2 flex-wrap">
+                        {evaluationResult.type === 'metric' && evaluationResult.formattedResult?.includes('=') ? (
+                          // For metric conversions, show the formatted equation with proper symbols
+                          <>
+                            <span className="font-mono text-gray-600 text-sm">
+                              {evaluationResult.formattedResult.split('=')[0].trim()}
+                            </span>
+                            <span className="text-gray-400">=</span>
+                            <span className="font-mono text-indigo-600 font-semibold text-lg">
+                              {evaluationResult.formattedResult.split('=')[1].trim()}
+                            </span>
+                          </>
+                        ) : (
+                          // For math and other types, show input = result
+                          <>
+                            <span className="font-mono text-gray-600 text-sm">{evaluationResult.input}</span>
+                            <span className="text-gray-400">=</span>
+                            <span className="font-mono text-indigo-600 font-semibold text-lg">
+                              {evaluationResult.formattedResult || evaluationResult.result}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                      <p className="text-xs text-gray-500 mt-2">
+                        Press <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">Enter</kbd> to close
+                      </p>
+                    </div>
+                  ) : evaluationResult?.error ? (
+                    <div className="p-4 text-sm text-orange-600">
+                      <p className="mb-1">{evaluationResult.error}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Try: <span className="font-mono">2+2</span>, <span className="font-mono">10 km to miles</span>, or <span className="font-mono">32°F to °C</span>
+                      </p>
+                    </div>
                   ) : isValidatingCode ? (
                     <div className="p-4 text-sm text-gray-400">
                       <p>Validating code...</p>
@@ -173,7 +222,7 @@ export default function CommandCenter() {
                   ) : (
                     <div className="p-4 text-sm text-gray-400">
                       <p>Type <span className="font-mono">/</span> to see route suggestions</p>
-                      <p className="text-xs mt-1">Or enter a code...</p>
+                      <p className="text-xs mt-1">Or enter a code, math expression, or conversion...</p>
                     </div>
                   )
                 ) : (

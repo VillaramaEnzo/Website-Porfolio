@@ -6,6 +6,7 @@ import { usePreloaderContext, useRemix } from '@/context'
 import { isValidRoute, getNavigationPath, getAutocompleteRoutes } from '@/utils/routes'
 import { getAutocompleteCodes, findCodeByCode, isValidPublicCode } from '@/utils/codes'
 import { validateSecretCode } from '@/utils/encrypt_secrets'
+import { evaluate, canEvaluate, type EvaluateResult } from '@/utils/evaluate'
 
 export function useCommandCenter() {
   const [isOpen, setIsOpen] = useState(false)
@@ -19,6 +20,8 @@ export function useCommandCenter() {
     error?: string
     retryAfter?: number
   } | null>(null)
+  const [evaluationResult, setEvaluationResult] = useState<EvaluateResult | null>(null)
+  const [isEvaluating, setIsEvaluating] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
   const { showPreloader, isPreloaderDone } = usePreloaderContext()
@@ -43,8 +46,38 @@ export function useCommandCenter() {
     setSelectedIndex(0)
   }, [routeSuggestions.length, codeSuggestions.length, inputValue])
 
+  // Check if input can be evaluated (math, currency, metric)
+  useEffect(() => {
+    const trimmedInput = inputValue.trim()
+    
+    // Only check for evaluation if:
+    // 1. Input doesn't start with /
+    // 2. Input has content
+    // 3. There are NO public code suggestions
+    // 4. It's NOT an exact match for a public code
+    if (
+      trimmedInput && 
+      !trimmedInput.startsWith('/') && 
+      codeSuggestions.length === 0 && 
+      !isValidPublicCode(trimmedInput) &&
+      canEvaluate(trimmedInput)
+    ) {
+      const timeoutId = setTimeout(async () => {
+        setIsEvaluating(true)
+        const result = await evaluate(trimmedInput)
+        setEvaluationResult(result)
+        setIsEvaluating(false)
+      }, 300) // Debounce 300ms
+
+      return () => clearTimeout(timeoutId)
+    } else {
+      setEvaluationResult(null)
+      setIsEvaluating(false)
+    }
+  }, [inputValue, codeSuggestions.length])
+
   // Validate secret code as user types (debounced)
-  // Only validate if it's NOT a public code and doesn't start with /
+  // Only validate if it's NOT a public code, doesn't start with /, and is NOT evaluable
   useEffect(() => {
     const trimmedInput = inputValue.trim().toLowerCase()
     
@@ -53,11 +86,13 @@ export function useCommandCenter() {
     // 2. Input has content
     // 3. There are NO public code suggestions (meaning it's not matching a public code)
     // 4. It's NOT an exact match for a public code
+    // 5. It's NOT evaluable (evaluation takes priority)
     if (
       trimmedInput && 
       !trimmedInput.startsWith('/') && 
       codeSuggestions.length === 0 && 
-      !isValidPublicCode(trimmedInput)
+      !isValidPublicCode(trimmedInput) &&
+      !canEvaluate(trimmedInput)
     ) {
       const timeoutId = setTimeout(async () => {
         setIsValidatingCode(true)
@@ -211,6 +246,13 @@ export function useCommandCenter() {
       e.preventDefault()
       const trimmedInput = inputValue.trim()
       
+      // If input is empty, just close the command center
+      if (!trimmedInput) {
+        setIsOpen(false)
+        setInputValue('')
+        return
+      }
+      
       // Track if any handler succeeded
       let handled = false
       
@@ -240,6 +282,19 @@ export function useCommandCenter() {
         // Otherwise, try as secret command
         if (!handled) {
           handled = await handleSecretCommand(trimmedInput)
+        }
+      }
+      
+      // If nothing was handled, try to evaluate as math/currency/metric
+      if (!handled) {
+        if (canEvaluate(trimmedInput)) {
+          const evalResult = await evaluate(trimmedInput)
+          if (evalResult.success) {
+            // Evaluation succeeded - result is already in state, just close
+            setIsOpen(false)
+            setInputValue('')
+            handled = true
+          }
         }
       }
       
@@ -296,6 +351,8 @@ export function useCommandCenter() {
     selectedIndex,
     isValidatingCode,
     secretCodeValidation,
+    evaluationResult,
+    isEvaluating,
     
     // Refs
     inputRef,

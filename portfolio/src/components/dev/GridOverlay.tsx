@@ -64,6 +64,17 @@ function getGridColsClasses(mobile: number, tablet: number, desktop: number): st
  */
 const GRID_LAYOUTS: GridLayout[] = [
   {
+    name: 'Grid off',
+    enabled: true,
+    gap: 'gap-0',
+    padding: 'px-0',
+    columns: {
+      mobile: 0,
+      tablet: 0,
+      desktop: 0,
+    },
+  },
+  {
     name: '12-8-4 with gaps',
     enabled: true,
     gap: 'gap-3 sm:gap-4 md:gap-6',
@@ -240,6 +251,7 @@ const GRID_LAYOUTS: GridLayout[] = [
 
 export default function GridOverlay() {
   const [currentLayoutIndex, setCurrentLayoutIndex] = useState<number | null>(0) // null = hidden
+  const [lastActiveLayoutIndex, setLastActiveLayoutIndex] = useState<number>(0) // Track last active layout before hiding
   const [isMounted, setIsMounted] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
   const [tooltipOpacity, setTooltipOpacity] = useState(0)
@@ -290,21 +302,42 @@ export default function GridOverlay() {
     }
   }, [currentLayoutIndex, currentLayout])
 
-  // Cycle through layouts with 'Shift + G' key
+  // Handle keyboard shortcuts: Shift + G (cycle) and Shift + Cmd/Ctrl + G (toggle)
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      // Only cycle if not typing in an input/textarea
+      // Only handle if not typing in an input/textarea
       const target = e.target as HTMLElement
-      if (e.shiftKey && (e.key === 'g' || e.key === 'G') && target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+        return
+      }
+
+      const isShiftG = e.shiftKey && !e.metaKey && !e.ctrlKey && (e.key === 'g' || e.key === 'G')
+      const isShiftCmdG = e.shiftKey && (e.metaKey || e.ctrlKey) && (e.key === 'g' || e.key === 'G')
+
+      if (isShiftCmdG) {
+        // Shift + Cmd/Ctrl + G: Toggle grid on/off
         e.preventDefault()
         setCurrentLayoutIndex(prev => {
-          // If hidden (null), show first layout
           if (prev === null) {
-            return 0
-          }
-          // If at last layout, hide
-          if (prev >= enabledLayouts.length - 1) {
+            // Grid is off, turn it on with last active layout
+            return lastActiveLayoutIndex
+          } else {
+            // Grid is on, turn it off and save current layout
+            setLastActiveLayoutIndex(prev)
             return null
+          }
+        })
+      } else if (isShiftG) {
+        // Shift + G: Cycle through layouts (or restore if hidden)
+        e.preventDefault()
+        setCurrentLayoutIndex(prev => {
+          // If hidden (null), restore last active layout
+          if (prev === null) {
+            return lastActiveLayoutIndex
+          }
+          // If at last layout, cycle back to first layout (index 0)
+          if (prev >= enabledLayouts.length - 1) {
+            return 0
           }
           // Otherwise, go to next layout
           return prev + 1
@@ -314,15 +347,15 @@ export default function GridOverlay() {
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [enabledLayouts.length])
+  }, [enabledLayouts.length, lastActiveLayoutIndex])
 
   // Only render in development - check after all hooks
   if (process.env.NODE_ENV !== 'development' || !isMounted) {
     return null
   }
 
-  // Don't render if no layout is selected (hidden)
-  if (!currentLayout) {
+  // Don't render if no layout is selected (hidden) or if current layout is "Grid off"
+  if (!currentLayout || currentLayout.name === 'Grid off') {
     return null
   }
 
