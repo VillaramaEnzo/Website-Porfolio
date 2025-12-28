@@ -20,9 +20,30 @@ import { NextRequest, NextResponse } from 'next/server'
 import { SECRET_CODES_DATA } from '@/utils/secret.server'
 import { checkRateLimit } from '@/lib/rateLimit'
 
+// Maximum request body size (1KB - sufficient for code validation)
+const MAX_BODY_SIZE = 1024
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    // Check request size before parsing
+    const contentLength = request.headers.get('content-length')
+    if (contentLength && parseInt(contentLength, 10) > MAX_BODY_SIZE) {
+      return NextResponse.json(
+        { valid: false, error: 'Request body too large' },
+        { status: 413 } // Payload Too Large
+      )
+    }
+
+    // Read and parse body with size limit
+    const bodyText = await request.text()
+    if (bodyText.length > MAX_BODY_SIZE) {
+      return NextResponse.json(
+        { valid: false, error: 'Request body too large' },
+        { status: 413 }
+      )
+    }
+
+    const body = JSON.parse(bodyText)
     const { code } = body
 
     if (!code || typeof code !== 'string') {
@@ -42,7 +63,7 @@ export async function POST(request: NextRequest) {
     const action = codeConfig?.action
 
     // Check rate limit (passes validation result to track failures)
-    const rateLimitResult = checkRateLimit(request, isValid)
+    const rateLimitResult = await checkRateLimit(request, isValid)
     
     // If rate limited, return error
     if (!rateLimitResult.allowed) {
@@ -70,7 +91,10 @@ export async function POST(request: NextRequest) {
       action: action, // Action type for client to execute (codes stay server-side)
     })
   } catch (error) {
-    console.error('Error validating secret code:', error)
+    // Only log errors in development to avoid leaking info in production
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error validating secret code:', error)
+    }
     return NextResponse.json(
       { valid: false, error: 'Internal server error' },
       { status: 500 }

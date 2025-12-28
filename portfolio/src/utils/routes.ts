@@ -5,6 +5,8 @@
  * Used for navigation, command center, and route suggestions.
  */
 
+import { isPrivateRoutePath } from './privateRoutes.client'
+
 export interface RouteConfig {
   path: string
   name: string
@@ -22,7 +24,7 @@ export const routes: RouteConfig[] = [
   {
     path: '/home',
     name: 'Home',
-    description: 'Landing page',
+    description: 'Home page',
     isPublic: true,
     keywords: ['home', 'landing', 'main'],
   },
@@ -36,16 +38,23 @@ export const routes: RouteConfig[] = [
   {
     path: '/projects',
     name: 'Projects',
-    description: 'Projects showcase',
+    description: 'Projects',
     isPublic: true,
     keywords: ['projects', 'work', 'portfolio', 'showcase'],
   },
   {
     path: '/contact',
     name: 'Contact',
-    description: 'Contact page',
+    description: 'Contact Me!',
     isPublic: true,
     keywords: ['contact', 'reach', 'email', 'get in touch'],
+  },
+  { 
+    path: '/gallery',
+    name: 'Gallery',
+    description: 'Gallery',
+    isPublic: true,
+    keywords: ['gallery', 'images', 'photos', 'showcase'],
   },
   
   // Secret Routes (not shown in navigation, but accessible)
@@ -141,9 +150,18 @@ export function searchRoutes(query: string, includeSecret: boolean = false): Rou
 
 /**
  * Check if a path is a valid route
+ * Includes both public/secret routes and private routes
+ * Private routes are NOT shown in autocomplete but can be navigated to
  */
 export function isValidRoute(path: string): boolean {
-  return routes.some(route => route.path === path)
+  // Check public/secret routes first
+  if (routes.some(route => route.path === path)) {
+    return true
+  }
+  
+  // Check private routes (minimal client-side check)
+  // Private routes work for navigation but don't appear in autocomplete
+  return isPrivateRoutePath(path)
 }
 
 /**

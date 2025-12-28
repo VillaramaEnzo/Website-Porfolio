@@ -11,6 +11,7 @@ import { usePreloaderContext } from '@/context'
 
 import PageTransition from '@/components/Transitions/PageTransition'
 import { getTransitionForRoute } from '@/utils/transitionConfig'
+import GridOverlay from '@/components/dev/GridOverlay'
 
 function PreloaderWrapper() {
   const pathname = usePathname()
@@ -37,6 +38,8 @@ function ClientContent({ children }: { children: React.ReactNode }) {
     <>
       <Header />
       <Navigation />
+      {/* Development Grid Overlay */}
+      <GridOverlay />
       <div className="relative">
         <AnimatePresence>
           <PreloaderWrapper />

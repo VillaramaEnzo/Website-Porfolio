@@ -74,7 +74,10 @@ export async function validateSecretCode(code: string): Promise<ValidationRespon
 
     return data
   } catch (error) {
-    console.error('Error validating secret code:', error)
+    // Only log errors in development to avoid leaking info in production
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error validating secret code:', error)
+    }
     return {
       valid: false,
       error: 'Failed to validate code',

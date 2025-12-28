@@ -64,45 +64,123 @@ function Scene() {
 
 
 function Box() {
-  const clipPath = "M 10, 50 L \
-                      90, 50 A 10, 10, 0, 0, 0, \
-                      100, 40 L \
-                      100, 10 A 10, 10, 0, 0, 1, \
-                      110, 0 L \
-                      190, 0, A 10, 10, 0, 0, 1, \
-                      200, 10 L \
-                      200, 190 A 10, 10, 0, 0, 1, \
-                      190, 200 L \
-                      10, 200 A 10, 10, 0, 0, 1, \
-                      0, 190 L \
-                      0, 60, A 10, 10, 0, 0, 1, \
-                      10, 50 Z"
+  const clipPath = "M 10, 50 \
+                    L 90, 50 \
+                    A 10, 10, 0, 0, 0, 100, 40 \
+                    L 100, 10 \
+                    A 10, 10, 0, 0, 1, 110, 0 \
+                    L 190, 0, \
+                    A 10, 10, 0, 0, 1, 200, 10 \
+                    L 200, 190 \
+                    A 10, 10, 0, 0, 1, 190, 200 \
+                    L 10, 200 \
+                    A 10, 10, 0, 0, 1, 0, 190 \
+                    L 0, 60 \
+                    A 10, 10, 0, 0, 1, 10, 50 \
+                    Z"
 
   return (
     <div className="w-[200px] h-[200px] bg-red-500" style={{ clipPath: `path("${clipPath}")` }}/> 
   )
 }
 
+function Folder(){
+
+  const clipPath = "M 10, 50 \
+                    L 80, 50 \
+                    L 130, 70 \
+                    L 190, 70 \
+                    A 10, 10, 0, 0, 1, 200, 80 \
+                    L 200, 190 \
+                    A 10, 10, 0, 0, 1, 190, 200 \
+                    L 10, 200 \
+                    A 10, 10, 0, 0, 1, 0, 190 \
+                    L 0, 60 \
+                    A 10, 10, 0, 0, 1, 10, 50 \
+                    Z"
+
+  return (
+    <div className="w-[200px] h-[200px] bg-blue-500" style={{ clipPath: `path("${clipPath}")` }}/>
+  )
+
+}
+
+function Folder2(){
+
+  const clipPath = "M 10, 50 \
+                    L 90, 50 \
+                    A 10, 10, 0, 0, 1, 100, 60 \
+                    A 10, 10, 0, 0, 0, 110, 70 \
+                    L 130, 70 \
+                    L 190, 70 \
+                    A 10, 10, 0, 0, 1, 200, 80 \
+                    L 200, 190 \
+                    A 10, 10, 0, 0, 1, 190, 200 \
+                    L 10, 200 \
+                    A 10, 10, 0, 0, 1, 0, 190 \
+                    L 0, 60 \
+                    A 10, 10, 0, 0, 1, 10, 50 \
+                    Z"
+
+  return (
+    <div className="w-[200px] h-[200px] bg-blue-500" style={{ clipPath: `path("${clipPath}")` }}/> 
+  
+  )
+
+}
+
+function Folder3(){
+
+  const clipPath = "M 10 50 \
+                    L 80 50 \
+                    Q 90 50 97 57 \
+                    L 103 63 \
+                    Q 110 70 120 70 \
+                    L 190 70 \
+                    A 10 10 0 0 1 200 80 \
+                    L 200 190 \
+                    A 10 10 0 0 1 190 200 \
+                    L 10 200 \
+                    A 10 10 0 0 1 0 190 \
+                    L 0 60 \
+                    A 10 10 0 0 1 10 50 \
+                    Z"
+
+  return (
+    <div className="w-[200px] h-[200px] bg-blue-500" style={{ clipPath: `path("${clipPath}")` }}/> 
+  
+  )
+
+}
+
+
+
+
+
 function BoxScalable() {
+  
+  const path = "M 0.05, 0.25 \
+                L 0.45, 0.25 \
+                A 0.05, 0.05, 0, 0, 0, 0.5, 0.2 \
+                L 0.5, 0.05 \
+                A 0.05, 0.05, 0, 0, 1, 0.55, 0 \
+                L 0.95, 0 \
+                A 0.05, 0.05, 0, 0, 1, 1, 0.05 \
+                L 1, 0.95 \
+                A 0.05, 0.05, 0, 0, 1, 0.95, 1 \
+                L 0.05, 1 \
+                A 0.05, 0.05, 0, 0, 1, 0, 0.95 \
+                L 0, 0.3 \
+                A 0.05, 0.05, 0, 0, 1, 0.05, 0.25 \
+                Z" 
+  
   return (
     <div className="relative w-[20vw] aspect-square">
       {/* Define clipPath in SVG with relative coordinates */}
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="custom-shape" clipPathUnits="objectBoundingBox">
-            <path d="M 0.05, 0.25 L
-                     0.45, 0.25 A 0.05, 0.05, 0, 0, 0,
-                     0.5, 0.2 L
-                     0.5, 0.05 A 0.05, 0.05, 0, 0, 1,
-                     0.55, 0 L
-                     0.95, 0 A 0.05, 0.05, 0, 0, 1,
-                     1, 0.05 L
-                     1, 0.95 A 0.05, 0.05, 0, 0, 1,
-                     0.95, 1 L
-                     0.05, 1 A 0.05, 0.05, 0, 0, 1,
-                     0, 0.95 L
-                     0, 0.3 A 0.05, 0.05, 0, 0, 1,
-                     0.05, 0.25 Z" />
+            <path d={path}/>
           </clipPath>
         </defs>
       </svg>
@@ -129,6 +207,20 @@ export default function PlayPage() {
         <div className="text-center">
           <h3 className="text-sm text-gray-400 mb-4">Scalable (SVG clipPath)</h3>
           <BoxScalable />
+        </div>
+        <div className="text-center">
+          <h3 className="text-sm text-gray-400 mb-4">Folder (SVG clipPath)</h3>
+          <Folder/>
+
+          
+        </div>
+        <div className="text-center">
+          <h3 className="text-sm text-gray-400 mb-4">Folder2 (SVG clipPath)</h3>
+          <Folder2 />
+        </div>
+        <div className="text-center">
+          <h3 className="text-sm text-gray-400 mb-4">Folder3 (SVG clipPath)</h3>
+          <Folder3 />
         </div>
       </div>
     </div>

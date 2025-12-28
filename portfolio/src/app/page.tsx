@@ -12,19 +12,19 @@ export default function Home() {
       
      
       <section>
-        <div className="w-full h-screen bg-red-500">
+        <div className="w-full h-screen">
         </div>
       </section> 
       <section>
-        <div className="w-full h-screen bg-red-400">
+        <div className="w-full h-screen">
         </div>
       </section>
        <section>
-        <div className="w-full h-screen bg-red-500">
+        <div className="w-full h-screen">
         </div>
       </section> 
       <section>
-        <div className="w-full h-screen bg-red-50">
+        <div className="w-full h-screen">
         </div>
       </section>
       

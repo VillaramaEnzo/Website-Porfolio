@@ -20,7 +20,10 @@ export function useScrollManager() {
 
   const scrollToTop = () => {
     if (!lenis) {
-      console.warn('Lenis instance not available for scrollToTop')
+      // Only log in development to avoid console noise in production
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Lenis instance not available for scrollToTop')
+      }
       return
     }
     
@@ -64,7 +67,10 @@ export function useScrollManager() {
         if (updateInterval) clearTimeout(updateInterval)
       }, updateDuration + 200)
     } catch (error) {
-      console.error('Error scrolling to top:', error)
+      // Only log errors in development to avoid leaking info in production
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error scrolling to top:', error)
+      }
     }
   }
 
