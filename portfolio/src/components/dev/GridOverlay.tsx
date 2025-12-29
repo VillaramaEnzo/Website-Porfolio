@@ -165,11 +165,11 @@ const GRID_LAYOUTS: GridLayout[] = [
   {
     name: 'Gallery Grid',
     enabled: true,
-    gap: 'gap-1 sm:gap-2 md:gap-4',
+    gap: 'gap-[4px]',
     padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
     columns: {
-      mobile: 4,
-      tablet: 8,
+      mobile: 3,
+      tablet: 4,
       desktop: 8,
     },
   },
