@@ -60,7 +60,7 @@ export default function Nav() {
   return (
     <motion.nav 
       ref={navRef} 
-      className="fixed bottom-4 z-[99]"
+      className="fixed bottom-4 z-99"
       style={{
         left,
         x,
@@ -90,7 +90,7 @@ export default function Nav() {
           navLinks={navLinks}
         />
 
-        {/* Remix Drawer - Reveals from below, only in remix mode */}
+        {/* Remix Drawer - Reveals from below, only in remix mode 
         {isRemixing && (
           <RemixDrawer 
             isOpen={isRemixDrawerOpen}
@@ -98,6 +98,7 @@ export default function Nav() {
             onHeightChange={setRemixDrawerHeight}
           />
         )}
+        */}
 
         {/* Main Nav Card - Always visible, fixed position */}
         {/* Nav is positioned at grid padding edge, so content padding aligns with grid columns */}
@@ -111,7 +112,7 @@ export default function Nav() {
           }}
         >
             {/* Avatar with play button overlay */}
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden relative group">
                 <Image
                   src="/images/IMG_0418.jpeg"
@@ -126,20 +127,31 @@ export default function Nav() {
                     className="absolute inset-0 bg-black/40 flex items-center justify-center cursor-pointer rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out"
                     onClick={(e) => {
                       e.stopPropagation()
-                      const newState = !isRemixDrawerOpen
-                      // If main drawer is open and we want to open remix drawer,
-                      // close main drawer first, then open remix drawer after animation
-                      if (isMenuOpen && newState) {
-                        setIsMenuOpen(false)
-                        // Wait for main drawer close animation to complete
-                        setTimeout(() => {
-                          setIsRemixDrawerOpen(true)
-                        }, 400) // Match the main drawer close animation duration
-                      } else {
-                        setIsRemixDrawerOpen(newState)
-                      }
+                      console.log('play button clicked')
+
+                      {/* 
+                        Old Remix Drawer Toggle Logic: 
+                        Initially I wanted the remix drawer to come from the bottom of the nav card,
+                        But have decided its better I have the main drawer just become scrollable when in remix mode. 
+                        ---
+                        If remix drawer is open and user wants to open primary drawer,
+                        close remix drawer first, then open primary drawer after animation
+                        const newState = !isRemixDrawerOpen
+                        // If main drawer is open and we want to open remix drawer,
+                        // close main drawer first, then open remix drawer after animation
+                        if (isMenuOpen && newState) {
+                          setIsMenuOpen(false)
+                          // Wait for main drawer close animation to complete
+                          setTimeout(() => {
+                            setIsRemixDrawerOpen(true)
+                          }, 500) // Match the main drawer close animation duration
+                        } else {
+                          setIsRemixDrawerOpen(newState)
+                        }
+                      */}
                     }}
-                  >
+                    >
+
                     <div className="w-8 h-8 md:w-10 md:h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg scale-90 group-hover:scale-100 transition-transform duration-200 ease-in-out">
                       {/* Play icon - triangle pointing right */}
                       <svg
@@ -187,13 +199,21 @@ export default function Nav() {
             </div>
 
             {/* Hamburger Menu - Dark variant for light background */}
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <HamburgerMenu 
                 navLinks={navLinks} 
                 isOpen={isMenuOpen}
                 onMenuToggle={(newState) => {
-                  // If remix drawer is open and user wants to open primary drawer,
-                  // close remix drawer first, then open primary drawer after animation
+                  
+                  setIsMenuOpen(newState)
+                  
+                  {/* 
+                    Old Remix Drawer Toggle Logic: 
+                    Initially I wanted the remix drawer to come from the bottom of the nav card,
+                    But have decided its better I have the main drawer just become scrollable when in remix mode.
+                    --- 
+                    If remix drawer is open and user wants to open primary drawer,
+                     close remix drawer first, then open primary drawer after animation
                   if (isRemixDrawerOpen && newState) {
                     setIsRemixDrawerOpen(false)
                     // Wait for remix drawer close animation to complete before opening primary drawer
@@ -203,7 +223,7 @@ export default function Nav() {
                   } else {
                     // Normal toggle behavior
                     setIsMenuOpen(newState)
-                  }
+                  */}
                 }} 
                 color="black" 
               />

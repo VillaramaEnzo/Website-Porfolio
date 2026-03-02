@@ -20,7 +20,7 @@ export default function SlideTransition({
       {isTransitioning && (
         <motion.div
           key="slide-overlay"
-          className="fixed inset-0 bg-[#FAFAFA] z-[100] pointer-events-none"
+          className="fixed inset-0 bg-[#FAFAFA] z-100 pointer-events-none"
           initial={{ y: '-100%' }}
           animate={{
             y: ['-100%', '0%', '0%', '100%']

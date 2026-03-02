@@ -35,6 +35,7 @@ function getGridColsClasses(mobile: number, tablet: number, desktop: number): st
   }
   
   const tabletMap: Record<number, string> = {
+    2: 'md:grid-cols-2',
     3: 'md:grid-cols-3',
     4: 'md:grid-cols-4',
     5: 'md:grid-cols-5',
@@ -45,6 +46,7 @@ function getGridColsClasses(mobile: number, tablet: number, desktop: number): st
   }
   
   const desktopMap: Record<number, string> = {
+    2: 'xl:grid-cols-2',
     3: 'xl:grid-cols-3',
     4: 'xl:grid-cols-4',
     5: 'xl:grid-cols-5',
@@ -75,13 +77,13 @@ const GRID_LAYOUTS: GridLayout[] = [
     },
   },
   {
-    name: '12-8-4 with gaps',
-    enabled: true,
+    name: '12-4-2 with gaps',
+    enabled: false,
     gap: 'gap-3 sm:gap-4 md:gap-6',
-    padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
+    padding: 'px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20',
     columns: {
-      mobile: 4,
-      tablet: 8,
+      mobile: 2,
+      tablet: 4,
       desktop: 12,
     },
   },
@@ -119,8 +121,19 @@ const GRID_LAYOUTS: GridLayout[] = [
     },
   },
   {
-    name: '3-column grid',
+    name: '2-column grid',
     enabled: true,
+    gap: 'gap-3 sm:gap-4 md:gap-6',
+    padding: 'px-8 sm:px-8 md:px-16 lg:px-24',
+    columns: {
+      mobile: 2,
+      tablet: 2,
+      desktop: 2,
+    },
+  },
+  {
+    name: '3-column grid',
+    enabled: false,
     gap: 'gap-3 sm:gap-4 md:gap-6',
     padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
     columns: {
@@ -131,7 +144,7 @@ const GRID_LAYOUTS: GridLayout[] = [
   },
   {
     name: '4-column grid',
-    enabled: true,
+    enabled: false,
     gap: 'gap-3 sm:gap-4 md:gap-6',
     padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
     columns: {
@@ -142,7 +155,7 @@ const GRID_LAYOUTS: GridLayout[] = [
   },
   {
     name: '5-column grid',
-    enabled: true,
+    enabled: false,
     gap: 'gap-3 sm:gap-4 md:gap-6',
     padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
     columns: {
@@ -153,7 +166,7 @@ const GRID_LAYOUTS: GridLayout[] = [
   },
   {
     name: '6-column grid',
-    enabled: true,
+    enabled: false,
     gap: 'gap-3 sm:gap-4 md:gap-6',
     padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
     columns: {
@@ -161,71 +174,6 @@ const GRID_LAYOUTS: GridLayout[] = [
       tablet: 4,
       desktop: 6,
     },
-  },
-  {
-    name: 'Gallery Grid',
-    enabled: true,
-    gap: 'gap-[4px]',
-    padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
-    columns: {
-      mobile: 3,
-      tablet: 4,
-      desktop: 8,
-    },
-  },
-  {
-    name: '16-column grid',
-    enabled: false,
-    gap: 'gap-3 sm:gap-4 md:gap-6',
-    padding: 'px-3 sm:px-4 md:px-6 lg:px-8',
-    columns: {
-      mobile: 4,
-      tablet: 8,
-      desktop: 16,
-    },
-    // Use arbitrary values for 16 columns (Tailwind only supports up to 12 by default)
-    gridClasses: 'grid-cols-4 md:grid-cols-8 xl:grid-cols-[repeat(16,minmax(0,1fr))]',
-  },
-  {
-    name: '20/20/20/40',
-    enabled: true,
-    gap: 'gap-0',
-    padding: 'px-0',
-    columns: {
-      mobile: 2,
-      tablet: 4,
-      desktop: 4,
-    },
-    // Custom asymmetric grid: 20% 20% 20% 40%
-    gridClasses: 'grid-cols-2 md:grid-cols-4 xl:grid-cols-[20%_20%_20%_40%]',
-  },
-  
-  {
-    name: '30/70',
-    enabled: true,
-    gap: 'gap-0',
-    padding: 'px-0',
-    columns: {
-      mobile: 2,
-      tablet: 4,
-      desktop: 4,
-    },
-    // Custom asymmetric grid: 20% 20% 20% 40%
-    gridClasses: 'grid-cols-2 md:grid-cols-4 xl:grid-cols-[30%_70%]',
-  },
-
-  {
-    name: '70/30',
-    enabled: true,
-    gap: 'gap-0',
-    padding: 'px-0',
-    columns: {
-      mobile: 2,
-      tablet: 4,
-      desktop: 4,
-    },
-    // Custom asymmetric grid: 20% 20% 20% 40%
-    gridClasses: 'grid-cols-2 md:grid-cols-4 xl:grid-cols-[70%_30%]',
   },
   
 ]
@@ -246,18 +194,7 @@ const GRID_LAYOUTS: GridLayout[] = [
  * - Toggleable visibility
  * - Non-intrusive (pointer-events-none)
  * - Press Shift + G to cycle through enabled layouts
- * 
- * Layouts:
- * - Layout 1: 12-8-4 with standard gaps
- * - Layout 2: 12-8-4 no gaps
- * - Layout 3: 12-8-4 minimal gaps
- * - Layout 4: 12-8-4 large gaps
- * - Layout 5: 3-column grid
- * - Layout 6: 4-column grid
- * - Layout 7: 5-column grid
- * - Layout 8: 6-column grid
- * - Layout 9: 16-column grid
- * - Layout 10: 20/20/20/40% asymmetric columns
+ * - Press Shift + Cmd/Ctrl + G to toggle grid on/off
  */
 
 export default function GridOverlay() {
@@ -282,15 +219,21 @@ export default function GridOverlay() {
 
   // All hooks must be called before any conditional returns
   useEffect(() => {
-    setIsMounted(true)
+    setTimeout(() => {
+      setIsMounted(true)
+    }, 100)
   }, [])
 
   // Show tooltip when layout changes
   useEffect(() => {
     if (currentLayoutIndex !== null && currentLayout) {
       // Show tooltip immediately
-      setShowTooltip(true)
-      setTooltipOpacity(1)
+      setTimeout(() => {
+        setShowTooltip(true)
+      }, 100)
+      setTimeout(() => {
+        setTooltipOpacity(1)
+      }, 100)
       
       // Start fading out after 1.5 seconds
       const fadeTimer = setTimeout(() => {
@@ -308,8 +251,12 @@ export default function GridOverlay() {
       }
     } else {
       // Hide tooltip when grid is hidden
-      setShowTooltip(false)
-      setTooltipOpacity(0)
+      setTimeout(() => {
+        setShowTooltip(false)
+      }, 100)
+      setTimeout(() => {
+        setTooltipOpacity(0)
+      }, 100)
     }
   }, [currentLayoutIndex, currentLayout])
 
@@ -334,7 +281,9 @@ export default function GridOverlay() {
             return lastActiveLayoutIndex
           } else {
             // Grid is on, turn it off and save current layout
-            setLastActiveLayoutIndex(prev)
+            setTimeout(() => {
+              setLastActiveLayoutIndex(prev)
+            }, 100)
             return null
           }
         })

@@ -20,7 +20,7 @@ export default function ScaleTransition({
       {isTransitioning && (
         <motion.div
           key="scale-overlay"
-          className="fixed inset-0 bg-[#FAFAFA] z-[100] pointer-events-none origin-center"
+          className="fixed inset-0 bg-[#FAFAFA] z-100 pointer-events-none origin-center"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           exit={{ scale: 0 }}

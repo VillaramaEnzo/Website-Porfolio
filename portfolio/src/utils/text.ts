@@ -30,61 +30,37 @@ export const phrases = [
 ]
 
 
+export interface AudienceText {
+  audience: string
+  text: string
+}
+
 // Texts for the landing page, depending on the audience
 export const audienceTexts = [
   { 
     audience: "For anyone", 
     text: "Hello there, I'm just a boy chasing my dreams; And I'm glad you're here to see it.",
-    image: {
-      src: "https://picsum.photos/seed/anyone-but-you/1440/848",
-      alt: "Anyone but you",
-      className: "object-cover",
-    }
   },
   { 
     audience: "Recruiters", 
     text: "I'm a skilled designer with a passion for creating impactful user experiences.",
-    image: {
-      src: "https://picsum.photos/seed/recruiters/1440/848",
-      alt: "Recruiters",
-      className: "object-cover",
-    }
   },
   { 
     audience: "Design Directors", 
     text: "I bring a unique blend of creativity and strategic thinking to every project.",
-    image: {
-      src: "https://picsum.photos/seed/directors/1440/848",
-      alt: "Directors",
-      className: "object-cover",
-    }
   },
   { 
     audience: "Product Designers", 
     text: "I specialise in crafting intuitive and visually appealing product designs.",
-    image: {
-      src: "https://picsum.photos/seed/designers/1440/848",
-      alt: "Designers",
-      className: "object-cover",
-    }
+
   },
   { 
     audience: "Product Managers", 
     text: "I collaborate effectively to turn product visions into stunning realities.",
-    image: {
-      src: "https://picsum.photos/seed/managers/1440/848",
-      alt: "Managers",
-      className: "object-cover",
-    }
   },
   { 
     audience: "Engineers", 
     text: "I create designs that are not just beautiful, but also implementable and user-friendly.",
-    image: {
-      src: "https://picsum.photos/seed/engineers/1440/848",
-      alt: "Engineers",
-      className: "object-cover",
-    }
   }
 ]
 

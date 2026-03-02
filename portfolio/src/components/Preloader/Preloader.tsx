@@ -16,7 +16,7 @@ export default function Preloader() {
 
   return (
     <motion.div 
-      className="fixed inset-0 z-[100] bg-white text-black pointer-events-none"
+      className="fixed inset-0 z-100 bg-white text-black pointer-events-none"
       initial="visible"
       animate={isFadingOut ? "hidden" : "visible"}
       variants={components.preloader.container}

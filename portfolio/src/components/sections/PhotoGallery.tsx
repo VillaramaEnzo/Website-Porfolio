@@ -17,7 +17,7 @@ export default function PhotoGallery() {
   const [variant, setVariant] = useState<GridVariant>('normal')
 
   /* ----------------------- Data ----------------------- */
-  const items: Item[] = Array.from({ length: 80 }).map((_, i) => {
+  const items: Item[] = Array.from({ length: 20 }).map((_, i) => {
     // Mix of different aspect ratios
     const pattern = i % 3
     let aspectRatio: 'square' | 'portrait' | 'landscape'

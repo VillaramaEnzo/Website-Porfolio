@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ClientWrapper from "@/context/ClientWrapper";
+import ClientWrapper from "./context/ClientWrapper";
 
 export const metadata: Metadata = {
   title: "Enzo Villarama",
-  description: "Welcome to my personal portfolio",
+  description: "Me.dev",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-sans antialiased">
         <ClientWrapper>
-        {children}
+          {children}
         </ClientWrapper>
       </body>
     </html>

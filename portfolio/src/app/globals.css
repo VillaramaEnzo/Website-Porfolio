@@ -5,46 +5,22 @@
 @import '@fontsource/lato/900.css';
 
 /* Tailwind */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Global */
-
-* {
+/* Global resets */
+html, body {
   margin: 0;
   padding: 0;
-}
-
-html {
-  /* Lenis smooth scroll requires this */
-  scroll-behavior: auto;
-  /* Lenis handles scrolling, so we hide native scroll */
-  overflow: hidden;
-}
-
-body {
   font-family: 'Lato', sans-serif;
-  margin: 0;
-  padding: 0;
-  color: #555;
-  /* Lenis handles scrolling, so we hide native scroll */
-  overflow: hidden;
-  /* Allow body to extend beyond viewport */
+  scroll-behavior: auto; /* Lenis scroll handled separately */
+  overflow: hidden; /* hide native scroll for Lenis */
   position: relative;
 }
 
-.section {
-  @apply bg-white;
-}
-
-.drawer {
-  @apply bg-white bg-opacity-70 h-full top-0;
-}
-
-/* Tailwind */
+/* Tailwind: base layer */
 @layer base {
   :root {
+    /* Light theme */
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -71,7 +47,9 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
+    /* Dark theme */
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
@@ -97,54 +75,49 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
+  /* Apply theme variables */
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  /* Set border default using variable */
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
-body {
-    @apply bg-background text-foreground;
+
+  /* Optional section/drawer background defaults */
+  .section {
+    background-color: hsl(var(--card));
+  }
+
+  .drawer {
+    background-color: hsl(var(--card))/70;
+    height: 100%;
+    top: 0;
   }
 }
 
+/* Tailwind: custom utilities */
 @layer utilities {
-  .writing-vertical-rl {
-    writing-mode: vertical-rl;
-  }
+  /* Writing modes */
+  .writing-vertical-rl { writing-mode: vertical-rl; }
+  .writing-vertical-lr { writing-mode: vertical-lr; }
 
-  .writing-vertical-lr {
-    writing-mode: vertical-lr;
-  }
-  
-  .text-upright {
-    text-orientation: upright;
-  }
-  
-  .text-mixed {
-    text-orientation: mixed;
-  }
-  
-  .text-sideways {
-    text-orientation: sideways;
-  }
+  /* Text orientation */
+  .text-upright { text-orientation: upright; }
+  .text-mixed { text-orientation: mixed; }
+  .text-sideways { text-orientation: sideways; }
+  .text-sideways-right { text-orientation: sideways-right; }
+  .text-sideways-left { text-orientation: sideways-left; }
 
-  .text-sideways-right {
-    text-orientation: sideways-right;
-  }
-
-  .text-sideways-left {
-    text-orientation: sideways-left;
-  }
-
+  /* Scrollbar hide utility */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
 }
-
-

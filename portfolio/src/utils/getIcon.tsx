@@ -1,16 +1,18 @@
 // Centralise all imported icons here
 
-import { IoLogoInstagram, IoLogoLinkedin, IoDocumentText, IoLogoGithub, IoApps, IoGrid,
+import {IoLogoLinkedin, IoDocumentText, IoLogoGithub, IoApps, IoGrid,
   IoLaptopOutline, IoLaptop, IoMenu, IoSearch, IoNewspaper,
   IoLogoTiktok
  } from "react-icons/io5"
+
+ import { AiFillInstagram } from "react-icons/ai"
 
 import { FiPlay } from "react-icons/fi"
 
 export default function getIcon(iconName: string, className?: string) {
     switch(iconName) {
       case 'instagram':
-        return <IoLogoInstagram className={className} />
+        return <AiFillInstagram className={className} />
       case 'linkedin':
         return <IoLogoLinkedin className={className} />
       case 'document':

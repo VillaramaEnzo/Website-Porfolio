@@ -1,0 +1,45 @@
+/* Fonts */
+@import '@fontsource/lato/300.css';
+@import '@fontsource/lato/400.css';
+@import '@fontsource/lato/700.css';
+@import '@fontsource/lato/900.css';
+
+/* Tailwind base */
+@import "tailwindcss";
+
+/* Theme variables */
+/* Light theme (default) */
+:root {
+  --background: 240 100% 99%;
+  --foreground: 0 0% 10%;
+  --primary: 0 0% 10%;
+}
+
+/* Dark theme */
+.dark {
+  --background: 0 0% 10%;
+  --foreground: 0 0% 100%;
+  --primary: 240 100% 99%;
+}
+
+/* Use variables for body by default */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Lato', sans-serif;
+}
+
+.container {
+
+  --flex: flex;
+  --justify-center: justify-center;
+  --items-center: items-center;
+  --height: h-screen;
+  --width: w-screen;
+  --gap: gap-3 sm:gap-4 md:gap-6;
+  --px: px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20;
+  --bg-background: bg-background;
+  --text-primary: text-primary;
+}

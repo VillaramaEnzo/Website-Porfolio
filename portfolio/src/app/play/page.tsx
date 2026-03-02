@@ -154,6 +154,36 @@ function Folder3(){
 }
 
 
+function Login(){
+
+  const clipPath = "M 10, 50 \
+                    L 95, 50 \
+                    A 10, 10, 0, 0, 1, 105, 60 \
+                    L 105, 90 \
+                    A 10, 10, 0, 0, 0, 115, 100 \
+                    L 195, 100 \
+                    A 10, 10, 0, 0, 0, 205, 90 \
+                    L 205, 60 \
+                    A 10, 10, 0, 0, 1, 215, 50 \
+                    L 290, 50 \
+                    A 10, 10, 0, 0, 1, 300, 60 \
+                    L 300, 390 \
+                    A 10, 10, 0, 0, 1, 290, 400 \
+                    L 10, 400 \
+                    A 10, 10, 0, 0, 1, 0, 390 \
+                    L 0, 60 \
+                    A 10, 10, 0, 0, 1, 10, 50 \
+                    Z"
+
+  return (
+
+    <div className="w-[300px] h-[400px] bg-gray-500/80" style={{ clipPath: `path("${clipPath}")` }}/> 
+  
+  )
+
+}
+
+
 
 
 
@@ -197,7 +227,7 @@ function BoxScalable() {
 
 export default function PlayPage() {
   return (
-    <div className="w-full h-screen bg-white text-white flex items-center justify-center relative overflow-hidden">
+    <div className="w-full h-screen bg-white text-white flex-col gap-8 items-center justify-center relative overflow-hidden">
       <div className="flex gap-8 items-center">
         <div className="text-center">
           <h3 className="text-sm text-gray-400 mb-4">Original (CSS path)</h3>
@@ -221,6 +251,12 @@ export default function PlayPage() {
         <div className="text-center">
           <h3 className="text-sm text-gray-400 mb-4">Folder3 (SVG clipPath)</h3>
           <Folder3 />
+        </div>
+      </div>
+      <div className="flex gap-8 items-center justify-center">
+      <div className="text-center">
+        <h3 className="text-sm text-gray-400 mb-4">Login (SVG clipPath)</h3>
+          <Login />
         </div>
       </div>
     </div>

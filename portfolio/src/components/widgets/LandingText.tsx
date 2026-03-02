@@ -65,7 +65,7 @@ export default function LandingText() {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentText}
-          className="text-lg md:text-2xl font-normal leading-relaxed md:leading-tight mb-8 min-h-[5.5rem] md:min-h-[4rem]"
+          className="text-lg md:text-2xl font-normal leading-relaxed md:leading-tight mb-8 min-h-22 md:min-h-16"
           {...components.landingText.textFade}
         >
           {splitText(currentText).map((part, index) => (
