@@ -3,7 +3,8 @@ import { links, socialLink } from "../utils/text";
 
 export default function Links() {
   return (
-    <div className="flex flex-col gap-4 lg:gap-8 2xl:gap-10 items-end">
+    <nav aria-label="Social media links">
+      <div className="flex flex-col gap-4 lg:gap-8 2xl:gap-10 items-end">
 
         {links.map((link: socialLink) => (
             <a 
@@ -17,7 +18,8 @@ export default function Links() {
             {getIcon(link.icon, 'text-2xl lg:text-3xl 2xl:text-4xl')}
             </a>
         ))}
-    </div>
+      </div>
+    </nav>
   );
 }
 
