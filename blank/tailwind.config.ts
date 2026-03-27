@@ -6,6 +6,7 @@ const config: Config = {
 
   // Paths to all your components/pages
   content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}"
@@ -52,9 +53,14 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        breathe: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.1)', opacity: '0.8' },
+        },
       },
       animation: {
         fadeInUp: 'fadeInUp 0.5s ease-out forwards',
+        breathe: 'breathe 2s ease-in-out infinite',
       },
       borderRadius: {
         lg: 'var(--radius)',

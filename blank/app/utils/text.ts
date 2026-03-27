@@ -11,6 +11,7 @@ export interface socialLink {
   const linkedin = "enzo-villarama"
   const github = "VillaramaEnzo"
   const linktree = "___e_vil"
+  const email = "ienzovillarama@gmail.com"
 
   export const links: socialLink[] = [
     {
@@ -62,4 +63,34 @@ export const aboutMe = {
     "Food",
   ]
 
+}
+
+// Homepage Content
+// ------------------------------------------------------------
+export const homePageContent = {
+  intro: {
+    greeting: "Hi, I'm Enzo",
+    paragraphs: [
+      {
+        text: "Creative technologist exploring digital systems, identity, and self-directed work. Currently building ",
+        link: { text: "project: BLANK", href: "https://www.instagram.com/project_bl_nk" },
+        textAfter: " – More soon."
+      },
+      {
+        text: "I live in Auckland, New Zealand. You can keep up with me on ",
+        link: { text: "Instagram", href: `https://www.instagram.com/___e_vil` },
+        textAfter: " or feel free to send me an ",
+        link2: { text: "Email", href: "mailto:your.email@example.com" },
+        textAfter2: "."
+      },
+      {
+        text: ""
+      }
+    ]
+  },
+  cta: {
+    prompt: "Got a project in mind?",
+    heading: "Let's talk!",
+    mailto: `mailto:${email}`
+  }
 }

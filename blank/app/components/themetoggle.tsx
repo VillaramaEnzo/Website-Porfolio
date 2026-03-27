@@ -13,8 +13,8 @@ export default function ThemeToggle() {
       aria-label="Toggle theme"
     >
       {isDark
-        ? getIcon('moon', 'text-2xl xl:text-3xl 2xl:text-4xl')
-        : getIcon('sun', 'text-2xl xl:text-3xl 2xl:text-4xl')}
+        ? getIcon('moon', 'text-2xl lg:text-3xl 2xl:text-4xl')
+        : getIcon('sun', 'text-2xl lg:text-3xl 2xl:text-4xl')}
     </button>
   )
 }

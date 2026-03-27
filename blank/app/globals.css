@@ -43,3 +43,25 @@ html, body {
   --bg-background: bg-background;
   --text-primary: text-primary;
 }
+
+/* Animated underline effect */
+.animated-underline {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 250ms ease-in-out;
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+}
