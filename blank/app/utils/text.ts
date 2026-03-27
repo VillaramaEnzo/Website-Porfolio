@@ -76,7 +76,7 @@ export const homePageContent = {
         link: { text: "project: BLANK", href: "https://www.instagram.com/project_bl_nk" },
         textAfter: " – More soon."
       },
-      {text: "I’m interested in the space between ideas and execution—where things are built, shaped, and defined through process."},
+      {text: "I’m interested in the space between ideas and execution — where things are built, shaped, and defined through process."},
       {
         text: "I live in Auckland, New Zealand. You can keep up with me on ",
         link: { text: "Instagram", href: `https://www.instagram.com/___e_vil` },
