@@ -1,5 +1,19 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Secret `/ily` Page Setup
+
+The `/ily` route is password-protected.
+
+1. Create or edit `.env.local` and add a password:
+
+```bash
+ILY_PAGE_PASSWORD=your-secret-password-here
+```
+
+2. Start the app and visit `/ily`.
+   - If not authenticated, you will be redirected to `/ily/login`.
+   - Enter the password to unlock the page.
+
 ## Getting Started
 
 First, run the development server:
