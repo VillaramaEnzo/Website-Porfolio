@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import {
-  getIlyAuthCookieOptions,
-  getIlyPasswordFromEnv,
-} from "@/lib/ilyAuth";
+import { getIlyAuthCookieOptions } from "@/lib/ilyAuth";
+import { getIlyPasswordFromEnv } from "@/lib/ilyAuth.server";
+
+export const runtime = "nodejs";
 
 function sanitizeNextPath(pathname: FormDataEntryValue | null): string {
   if (typeof pathname !== "string") {

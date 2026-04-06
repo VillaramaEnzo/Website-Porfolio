@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import {
-  getIlyAuthCookieOptions,
-  verifyIlyQrUnlockToken,
-} from "@/lib/ilyAuth";
+import { getIlyAuthCookieOptions } from "@/lib/ilyAuth";
+import { verifyIlyQrUnlockToken } from "@/lib/ilyAuth.server";
+
+export const runtime = "nodejs";
 
 function redirectToLogin(requestUrl: string, qrStatus: "invalid" | "expired" = "invalid") {
   const loginUrl = new URL("/ily/login", requestUrl);

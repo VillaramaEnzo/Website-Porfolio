@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { createIlyQrUnlockToken } from "@/lib/ilyAuth";
+import { createIlyQrUnlockToken } from "@/lib/ilyAuth.server";
 
 export const metadata: Metadata = {
   title: "QR Unlock Link",
