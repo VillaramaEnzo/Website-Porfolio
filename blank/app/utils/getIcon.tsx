@@ -1,6 +1,6 @@
 // Centralise all imported icons here
 
-import { IoLogoLinkedin, IoLogoGithub } from "react-icons/io5"
+import { IoLogoLinkedin, IoLogoGithub, IoSearchOutline } from "react-icons/io5"
 import { AiFillInstagram } from "react-icons/ai"
 
 import { HiMoon } from "react-icons/hi"
@@ -25,6 +25,8 @@ import { GoArrowUpRight } from "react-icons/go";
           return <TbBrandLinktree className={className} />
         case 'arrow-up-right':
           return <GoArrowUpRight className={className} />
+        case 'search':
+          return <IoSearchOutline className={className} />
         default:
           return null
       }

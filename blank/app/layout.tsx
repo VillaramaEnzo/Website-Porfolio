@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ClientWrapper from "./context/ClientWrapper";
 
@@ -71,9 +71,12 @@ export const metadata: Metadata = {
     apple: '/favicon.svg',
   },
   
+};
+
+export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'hsl(240, 100%, 99%)' },
-    { media: '(prefers-color-scheme: dark)', color: 'hsl(0, 0%, 10%)' },
+    { media: "(prefers-color-scheme: light)", color: "hsl(240, 100%, 99%)" },
+    { media: "(prefers-color-scheme: dark)", color: "hsl(0, 0%, 10%)" },
   ],
 };
 
