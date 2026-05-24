@@ -1,7 +1,7 @@
 import { isIlyPageEnabledClient } from "@/lib/ilyAuth";
 
 export interface RouteConfig {
-  path: "/" | "/ily";
+  path: "/" | "/portfolio" | "/ily";
   name: string;
   description?: string;
 }
@@ -18,8 +18,15 @@ const ilyRoute: RouteConfig = {
   description: "Secret page",
 };
 
+const portfolioRoute: RouteConfig = {
+  path: "/portfolio",
+  name: "Portfolio",
+  description: "Expanded portfolio route",
+};
+
 function getRoutes(): RouteConfig[] {
-  return isIlyPageEnabledClient() ? [homeRoute, ilyRoute] : [homeRoute];
+  const baseRoutes: RouteConfig[] = [homeRoute, portfolioRoute];
+  return isIlyPageEnabledClient() ? [...baseRoutes, ilyRoute] : baseRoutes;
 }
 
 export function isValidRoute(path: string): boolean {

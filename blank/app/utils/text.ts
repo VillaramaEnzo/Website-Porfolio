@@ -89,6 +89,6 @@ export const homePageContent = {
   cta: {
     prompt: "Got a project in mind?",
     heading: "Let's talk!",
-    mailto: `mailto:${email}`
+    href: "/portfolio"
   }
 }

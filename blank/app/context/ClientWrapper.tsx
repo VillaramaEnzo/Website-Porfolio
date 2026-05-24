@@ -1,7 +1,15 @@
-import GridOverlay  from '../dev/GridOverlay'
-import CommandCenter from '../components/widgets/CommandCenter'
+'use client'
 
-function ClientContent({ children }: { children: React.ReactNode }) {
+import type { ReactNode } from 'react'
+import GridOverlay from '../dev/GridOverlay'
+import CommandCenter from '../components/widgets/CommandCenter'
+import AppProviders from './AppProviders'
+
+interface ClientWrapperProps {
+  children: ReactNode
+}
+
+function ClientContent({ children }: ClientWrapperProps) {
   return (
     <>
       <GridOverlay />
@@ -12,10 +20,10 @@ function ClientContent({ children }: { children: React.ReactNode }) {
 }
 
 
-export default function ClientWrapper({ children }: { children: React.ReactNode }) {
+export default function ClientWrapper({ children }: ClientWrapperProps) {
   return (
-    <ClientContent>
-      {children}
-    </ClientContent>
+    <AppProviders>
+      <ClientContent>{children}</ClientContent>
+    </AppProviders>
   )
 }
