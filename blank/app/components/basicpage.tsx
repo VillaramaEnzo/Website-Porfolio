@@ -111,7 +111,7 @@ function Layout() {
         
         {/* Row 3, Col 2: Arrow - perfectly aligned with CTA */}
         <div className="row-start-3 flex items-end justify-end">
-          <Arrow size={typography.mobile.arrow} mailto={homePageContent.cta.mailto} />
+          <Arrow size={typography.mobile.arrow} href={homePageContent.cta.href} />
         </div>
         
       </div>
@@ -158,7 +158,7 @@ function Layout() {
                 headingClassName={typography.tablet.ctaLarge}
               />
             </div>
-            <Arrow size={typography.tablet.arrow} mailto={homePageContent.cta.mailto} />
+            <Arrow size={typography.tablet.arrow} href={homePageContent.cta.href} />
           </div>
           
         </div>
@@ -208,7 +208,7 @@ function Layout() {
                 headingClassName={typography.desktop.ctaLarge}
               />
             </div>
-            <Arrow size={typography.desktop.arrow} mailto={homePageContent.cta.mailto} />
+            <Arrow size={typography.desktop.arrow} href={homePageContent.cta.href} />
           </div>
           
         </div>

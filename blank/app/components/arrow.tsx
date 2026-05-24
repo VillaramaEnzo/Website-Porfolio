@@ -1,21 +1,29 @@
 'use client'
 
+import Link from 'next/link'
 import getIcon from '../utils/getIcon'
+import { PORTFOLIO_PRELOADER_HANDOFF_KEY } from '../utils/preloader'
 
 interface ArrowProps {
   size?: string
   className?: string
-  mailto?: string
+  href?: string
 }
 
 export default function Arrow({ 
   size = 'text-6xl', 
   className = '',
-  mailto = 'mailto:ienzovillarama@gmail.com'
+  href = '/portfolio'
 }: ArrowProps) {
+  const handleClick = () => {
+    if (href !== '/portfolio' || typeof window === 'undefined') return
+    sessionStorage.setItem(PORTFOLIO_PRELOADER_HANDOFF_KEY, 'true')
+  }
+
   return (
-    <a
-      href={mailto}
+    <Link
+      href={href}
+      onClick={handleClick}
       className={`
         flex items-start 
         animate-breathe
@@ -28,6 +36,6 @@ export default function Arrow({
       `}
     >
       {getIcon('arrow-up-right', size)}
-    </a>
+    </Link>
   )
 }
